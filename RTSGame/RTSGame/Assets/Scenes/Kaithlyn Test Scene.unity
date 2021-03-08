@@ -645,6 +645,7 @@ GameObject:
   - component: {fileID: 1283295135}
   - component: {fileID: 1283295134}
   - component: {fileID: 1283295133}
+  - component: {fileID: 1283295136}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -711,12 +712,47 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283295132}
   m_LocalRotation: {x: 0.37686956, y: 0.16042998, z: -0.066452265, w: 0.9098438}
-  m_LocalPosition: {x: -5.33, y: 6.65, z: -7.04}
+  m_LocalPosition: {x: -5.59, y: 6.49, z: -7.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 20, z: 0}
+--- !u!114 &1283295136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283295132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ef8c68bade09b41aca258d42a632f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTab: 1
+  movementSettingsFoldout: 0
+  zoomingSettingsFoldout: 0
+  heightSettingsFoldout: 0
+  inputSettingsFoldout: 0
+  useFixedUpdate: 0
+  keyboardMovementSpeed: 5
+  panningSpeed: 5
+  autoHeight: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxHeight: 5
+  minHeight: 5
+  heightDampening: 0
+  scrollWheelZoomingSensitivity: 25
+  useKeyboardInput: 1
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  usePanning: 1
+  panningKey: 323
+  useScrollwheelZooming: 1
+  zoomingAxis: Mouse ScrollWheel
 --- !u!1 &1526941017
 GameObject:
   m_ObjectHideFlags: 0
