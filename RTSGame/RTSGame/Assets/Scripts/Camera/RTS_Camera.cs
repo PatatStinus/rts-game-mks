@@ -41,7 +41,7 @@ namespace RTS_Cam
         }
         private float ScrollWheel
         {
-            get { return Input.GetAxis(zoomingAxis); }
+            get { return -Input.GetAxis(zoomingAxis); }
         }
         private Vector2 MouseAxis
         {
@@ -89,7 +89,10 @@ namespace RTS_Cam
                 desiredMove = m_Transform.InverseTransformDirection(desiredMove);
 
                 m_Transform.Translate(desiredMove, Space.Self);
+                Cursor.visible = false;
             }
+            if (Input.GetKeyUp(panningKey))
+                Cursor.visible = true;
         }
         private void HeightCalculation()
         {

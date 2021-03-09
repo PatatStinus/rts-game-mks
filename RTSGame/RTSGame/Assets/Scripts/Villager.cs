@@ -6,7 +6,6 @@ using TMPro;
 
 public class Villager : MonoBehaviour
 {
-    private Transform civSpawnLocation;
     public GameObject objectToCreate;
     public GameObject civSpawn;
     private float cooldownTime = 10f;
@@ -21,12 +20,10 @@ public class Villager : MonoBehaviour
             cooldownTime -= 1 * Time.deltaTime;
             if (cooldownTime <= 0f)
             {
-                civSpawnLocation = civSpawn.transform;
-                Instantiate(objectToCreate, civSpawnLocation);
+                Instantiate(objectToCreate, civSpawn.transform);
                 cooldownTime = 10f;
                 vSpawnCount--;
             }
-
             villagerQueue.text = vSpawnCount.ToString("0");
             circleTimer.fillAmount = cooldownTime/10;
         }
