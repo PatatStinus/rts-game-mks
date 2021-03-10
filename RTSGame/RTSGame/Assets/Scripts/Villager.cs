@@ -6,11 +6,11 @@ using TMPro;
 
 public class Villager : MonoBehaviour
 {
-    public GameObject objectToCreate;
-    public GameObject civSpawn;
+    [SerializeField] private GameObject objectToCreate;
+    [SerializeField] private GameObject civSpawn;
+    [SerializeField] private TextMeshProUGUI villagerQueue;
+    [SerializeField] private Image circleTimer;
     private float cooldownTime = 10f;
-    public TextMeshProUGUI villagerQueue;
-    public Image circleTimer;
     private int vSpawnCount;
 
     private void Update()

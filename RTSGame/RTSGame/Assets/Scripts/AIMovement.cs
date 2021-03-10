@@ -5,16 +5,21 @@ using UnityEngine.AI;
 
 public class AIMovement : MonoBehaviour
 {
-    [SerializeField] private Camera cam;
-    public List<NavMeshAgent> simpleMovement;
-    public List<GameObject> indicator;
+    private Camera cam;
+    [SerializeField] private List<NavMeshAgent> simpleMovement;
+    [SerializeField] private List<GameObject> indicator;
     private bool playerSelected;
     private int selectedPawns = 0;
     private bool selecting;
 
+    private void Start()
+    {
+        cam = Camera.main;
+    }
+
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -29,7 +34,7 @@ public class AIMovement : MonoBehaviour
                     selectedPawns++;
                     return;
                 }
-
+                
                 if (hit.transform.tag == "Player" && playerSelected == false)
                 {
                     simpleMovement.Add(hit.transform.GetComponent<NavMeshAgent>());
@@ -39,7 +44,7 @@ public class AIMovement : MonoBehaviour
                     playerSelected = true;
                     return;
                 }
-
+                
                 if (playerSelected == true)
                 {
                     playerSelected = false;
@@ -54,11 +59,13 @@ public class AIMovement : MonoBehaviour
                 }
             }
         }
+
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             playerSelected = true;
             selecting = false;
         }
+        
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             playerSelected = false;
@@ -66,3 +73,5 @@ public class AIMovement : MonoBehaviour
         }
     }
 }
+
+
