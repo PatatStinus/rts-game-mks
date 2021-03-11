@@ -20,45 +20,35 @@ namespace RTS
 
         void Update()
         {
-            if (Input.GetMouseButton(0))
+            //shoot ray from cam
+            ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            //Make box size
+            if (Input.GetMouseButton(0) && Physics.Raycast(ray, out hit))
             {
-                ray = cam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        startPos = hit.point;
-                        box.baseMin = startPos;
-                        projector.enabled = true;
-                    }
+                    startPos = hit.point;
+                    box.baseMin = startPos;
+                    projector.enabled = true;
+                }
 
-                    dragPos = hit.point;
-                    box.baseMax = dragPos;
-                    projector.aspectRatio = box.Size.x / box.Size.z;
-                    projector.orthographicSize = box.Size.z * 0.5f;
-                    projector.transform.position = box.Center;
-                }
-                if (Physics.Raycast(ray, out hit) && unitsSelected.Count > 0 && Input.GetMouseButtonDown(0)) 
-                {
-                    foreach (var unit in unitsSelected)
-                    {
-                        unit.MoveUnit(hit.point);
-                    }
-                }
+                dragPos = hit.point;
+                box.baseMax = dragPos;
+                projector.aspectRatio = box.Size.x / box.Size.z;
+                projector.orthographicSize = box.Size.z * 0.5f;
+                projector.transform.position = box.Center;
             }
-            else if (Input.GetMouseButtonUp(0))
+            else if (Input.GetMouseButtonUp(0)) //Get all villagers in box
             {
-                foreach(var unit in unitsSelected)
-                {
+                if (box.Size.magnitude < 0.3f)
+                    return;
+
+                foreach (var unit in unitsSelected)
                     unit.Selected(false);
-                }
 
                 unitsSelected.Clear();
-
-                if (box.Size.magnitude < 0.1f)
-                    return;
 
                 projector.enabled = false;
                 selections = Physics.OverlapBox(box.Center, box.Extents, Quaternion.identity);
@@ -74,15 +64,26 @@ namespace RTS
                     }
                 }
             }
+            //Move villagers
+            if (Physics.Raycast(ray, out hit) && unitsSelected.Count > 0 && Input.GetMouseButtonDown(1))
+            {
+                foreach (var unit in unitsSelected)
+                {
+                    unit.MoveUnit(hit.point);
+                    unit.Selected(false);
+                }
+            }
         }
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
 
-            Gizmos.DrawWireCube(box.Center, box.Size);
+        public void ChangeJob(int job)
+        {
+            //Dropdown menu to switch job of villager
+            foreach(var unit in unitsSelected)
+                unit.job = job;
         }
     }
 
+    //Select box size
     [System.Serializable]
     public class Box
     {
