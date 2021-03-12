@@ -61,7 +61,7 @@ namespace RTS
 
             if(job == 0)
             {
-                indicatorColor.material.SetColor("_Color", Color.yellow);
+                indicatorColor.material.SetColor("_BaseColor", Color.yellow);
                 if (farms.Count > 0)
                 {
                     for (int i = 0; i < farms.Count; i++)
@@ -74,7 +74,7 @@ namespace RTS
             }
             if(job == 1)
             {
-                indicatorColor.material.SetColor("_Color", Color.grey);
+                indicatorColor.material.SetColor("_BaseColor", Color.grey);
                 if (mines.Count > 0)
                 {
                     for (int i = 0; i < mines.Count; i++)
@@ -87,7 +87,7 @@ namespace RTS
             }
             if(job == 2)
             {
-                indicatorColor.material.SetColor("_Color", Color.red);
+                indicatorColor.material.SetColor("_BaseColor", Color.green);
                 if (woods.Count > 0)
                 {
                     for (int i = 0; i < woods.Count; i++)

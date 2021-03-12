@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace RTS
 {
     public class SelectBox : MonoBehaviour
     {
         [SerializeField] private Box box;
-        [SerializeField] private Projector projector;
         [SerializeField] private Collider[] selections;
+        [SerializeField] private GameObject projectorObject;
+        private DecalProjector projector;
         private List<Unit> unitsSelected = new List<Unit>();
         private Camera cam;
         private Vector3 startPos, dragPos;
@@ -24,6 +26,8 @@ namespace RTS
             ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
+            projector = projectorObject.transform.GetChild(0).gameObject.GetComponent<DecalProjector>();
+
             //Make box size
             if (Input.GetMouseButton(0) && Physics.Raycast(ray, out hit))
             {
@@ -36,13 +40,12 @@ namespace RTS
 
                 dragPos = hit.point;
                 box.baseMax = dragPos;
-                projector.aspectRatio = box.Size.x / box.Size.z;
-                projector.orthographicSize = box.Size.z * 0.5f;
-                projector.transform.position = box.Center;
+                projector.size = new Vector3(box.Size.x, box.Size.y + 5, box.Size.z);
+                projectorObject.transform.position = box.Center;
             }
             else if (Input.GetMouseButtonUp(0)) //Get all villagers in box
             {
-                if (box.Size.magnitude < 0.3f)
+                if (box.Size.magnitude < 0.1f)
                     return;
 
                 foreach (var unit in unitsSelected)
@@ -80,6 +83,13 @@ namespace RTS
             //Dropdown menu to switch job of villager
             foreach(var unit in unitsSelected)
                 unit.job = job;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+
+            Gizmos.DrawWireCube(box.Center, box.Size);
         }
     }
 
