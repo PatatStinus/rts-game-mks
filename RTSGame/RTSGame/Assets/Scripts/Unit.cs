@@ -17,36 +17,40 @@ namespace RTS
         #endregion
 
         #region Farm
-        [SerializeField] private GameObject farmParent;
         [SerializeField] private List<GameObject> farms;
         [SerializeField] private List<float> distanceFarms;
+        private GameObject farmParent;
         private int totalFarms = 0;
         private int closestFarm;
         #endregion
 
         #region Mining
-        [SerializeField] private GameObject miningParent;
         [SerializeField] private List<GameObject> mines;
         [SerializeField] private List<float> distanceMines;
+        private GameObject miningParent;
         private int totalMines = 0;
         private int closestMine;
         #endregion
 
         #region Wood Chopping
-        [SerializeField] private GameObject woodParent;
         [SerializeField] private List<GameObject> woods;
         [SerializeField] private List<float> distanceWoods;
+        private GameObject woodParent;
         private int totalWoods = 0;
         private int closestWood;
         #endregion
         #endregion
 
-        private void Start()
+        private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             indicator = transform.GetChild(0).gameObject;
             indicatorColor = indicator.GetComponent<Renderer>();
             indicator.SetActive(false);
+
+            farmParent = GameObject.FindGameObjectWithTag("Food");
+            miningParent = GameObject.FindGameObjectWithTag("Rock");
+            woodParent = GameObject.FindGameObjectWithTag("Wood");
         }
 
         public void Selected(bool select) { indicator.SetActive(select); }

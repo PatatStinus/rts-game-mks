@@ -18,6 +18,7 @@ namespace RTS
         private void Start()
         {
             cam = Camera.main;
+            projector = projectorObject.transform.GetChild(0).gameObject.GetComponent<DecalProjector>();
         }
 
         void Update()
@@ -25,8 +26,6 @@ namespace RTS
             //shoot ray from cam
             ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
-            projector = projectorObject.transform.GetChild(0).gameObject.GetComponent<DecalProjector>();
 
             //Make box size
             if (Input.GetMouseButton(0) && Physics.Raycast(ray, out hit))
@@ -45,7 +44,7 @@ namespace RTS
             }
             else if (Input.GetMouseButtonUp(0)) //Get all villagers in box
             {
-                if (box.Size.magnitude < 0.1f)
+                if (box.Size.magnitude < 0.3f)
                     return;
 
                 foreach (var unit in unitsSelected)
