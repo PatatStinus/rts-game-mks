@@ -11,6 +11,7 @@ namespace RTS
         #region Variables
         #region General
         public int job = 0;
+        public bool playerInput;
         private GameObject indicator;
         private Renderer indicatorColor;
         private NavMeshAgent agent;
@@ -51,11 +52,38 @@ namespace RTS
             farmParent = GameObject.FindGameObjectWithTag("Food");
             miningParent = GameObject.FindGameObjectWithTag("Rock");
             woodParent = GameObject.FindGameObjectWithTag("Wood");
+
+            totalFarms = farmParent.transform.childCount;
+            totalMines = miningParent.transform.childCount;
+            totalWoods = woodParent.transform.childCount;
+        }
+
+        private void Start()
+        {
+            for (int i = 0; i < totalFarms; i++)
+            {
+                farms.Add(farmParent.transform.GetChild(i).gameObject);
+                distanceFarms.Add(0);
+            }
+            for (int i = 0; i < totalMines; i++)
+            {
+                mines.Add(miningParent.transform.GetChild(i).gameObject);
+                distanceMines.Add(0);
+            }
+            for (int i = 0; i < totalWoods; i++)
+            {
+                woods.Add(woodParent.transform.GetChild(i).gameObject);
+                distanceWoods.Add(0);
+            }
         }
 
         public void Selected(bool select) { indicator.SetActive(select); }
 
-        public void MoveUnit(Vector3 position) { agent.SetDestination(position); }
+        public void MoveUnit(Vector3 position)
+        {
+            playerInput = true;
+            agent.SetDestination(position);
+        }
 
         private void Update()
         {
@@ -63,7 +91,10 @@ namespace RTS
             //1 = Mining
             //2 = Chopping wood
 
-            if(job == 0)
+            if (Vector3.Distance(agent.destination, transform.position) < 5)
+                playerInput = false;
+
+            if (job == 0)
             {
                 indicatorColor.material.SetColor("_BaseColor", Color.yellow);
                 if (farms.Count > 0)
@@ -73,7 +104,8 @@ namespace RTS
                         distanceFarms[i] = Vector3.Distance(transform.position, farms[i].transform.position);
                     }
                     closestFarm = distanceFarms.IndexOf(distanceFarms.Min());
-                    agent.SetDestination(farms[closestFarm].transform.position);
+                    if(!playerInput)
+                        agent.SetDestination(farms[closestFarm].transform.position);
                 }
             }
             if(job == 1)
@@ -86,7 +118,8 @@ namespace RTS
                         distanceMines[i] = Vector3.Distance(transform.position, mines[i].transform.position);
                     }
                     closestMine = distanceMines.IndexOf(distanceMines.Min());
-                    agent.SetDestination(mines[closestMine].transform.position);
+                    if(!playerInput)
+                        agent.SetDestination(mines[closestMine].transform.position);
                 }
             }
             if(job == 2)
@@ -99,20 +132,9 @@ namespace RTS
                         distanceWoods[i] = Vector3.Distance(transform.position, woods[i].transform.position);
                     }
                     closestWood = distanceWoods.IndexOf(distanceWoods.Min());
-                    agent.SetDestination(woods[closestWood].transform.position);
+                    if(!playerInput)
+                        agent.SetDestination(woods[closestWood].transform.position);
                 }
-            }
-            if(Input.GetKeyDown("f"))
-            {
-                farms.Add(farmParent.transform.GetChild(totalFarms).gameObject);
-                distanceFarms.Add(0);
-                totalFarms++;
-                mines.Add(miningParent.transform.GetChild(totalMines).gameObject);
-                distanceMines.Add(0);
-                totalMines++;
-                woods.Add(woodParent.transform.GetChild(totalWoods).gameObject);
-                distanceWoods.Add(0);
-                totalWoods++;
             }
         }
     }
