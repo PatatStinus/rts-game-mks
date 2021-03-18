@@ -99,9 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   job: 0
-  farmParent: {fileID: 0}
-  farms: []
-  distanceFarms: []
+  playerInput: 0
+  reachedDest: 0
 --- !u!65 &9084280966497512893
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -124,7 +123,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9084280966497512899}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50

@@ -81,7 +81,10 @@ namespace RTS
         {
             //Dropdown menu to switch job of villager
             foreach(var unit in unitsSelected)
+            {
                 unit.job = job;
+                unit.reachedDest = false;
+            }
         }
 
         private void OnDrawGizmos()

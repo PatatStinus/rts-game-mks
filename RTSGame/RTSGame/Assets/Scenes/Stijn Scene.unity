@@ -1185,6 +1185,7 @@ GameObject:
   - component: {fileID: 405538121}
   - component: {fileID: 405538120}
   - component: {fileID: 405538118}
+  - component: {fileID: 405538122}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1253,6 +1254,21 @@ MonoBehaviour:
     baseMax: {x: 0, y: 0, z: 0}
   selections: []
   projectorObject: {fileID: 2145431254}
+--- !u!114 &405538122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405538117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ef84386160e1844ea5f692bcf40d587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wood: 0
+  food: 0
+  stone: 0
 --- !u!4 &486249781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5281233484930206748, guid: 3f2c981309c8f7746bef1b0978d164b3, type: 3}
@@ -1403,7 +1419,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 507511751}
-  - component: {fileID: 507511752}
   m_Layer: 0
   m_Name: Woods
   m_TagString: Wood
@@ -1429,18 +1444,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &507511752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507511750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d40f620e0d0a540af4cecd2fc7c419, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &560309061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5281233484930206748, guid: 3f2c981309c8f7746bef1b0978d164b3, type: 3}
@@ -1853,7 +1856,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 897509378}
-  - component: {fileID: 897509379}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Rock
@@ -1877,18 +1879,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &897509379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 897509377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfd47ecdde4eda240880b946bfbfaae4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &941085695
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,7 +3085,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1580151129}
-  - component: {fileID: 1580151126}
   m_Layer: 0
   m_Name: Farm
   m_TagString: Food
@@ -3103,18 +3092,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1580151126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1580151125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf55f5218e5dbf45a93d6bb4d041abf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1580151129
 Transform:
   m_ObjectHideFlags: 0
@@ -3279,7 +3256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9084280966497512888, guid: fe8a5ab8101eeab4eb47aef1a9772f2c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.94
+      value: 28.71
       objectReference: {fileID: 0}
     - target: {fileID: 9084280966497512888, guid: fe8a5ab8101eeab4eb47aef1a9772f2c, type: 3}
       propertyPath: m_LocalRotation.w

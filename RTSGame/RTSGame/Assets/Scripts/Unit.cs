@@ -10,35 +10,40 @@ namespace RTS
     {
         #region Variables
         #region General
+        private ResourceManager addResources;
         public int job = 0;
         public bool playerInput;
         private GameObject indicator;
         private Renderer indicatorColor;
         private NavMeshAgent agent;
+        public bool reachedDest;
         #endregion
 
         #region Farm
-        [SerializeField] private List<GameObject> farms;
-        [SerializeField] private List<float> distanceFarms;
+        private List<GameObject> farms = new List<GameObject>();
+        private List<float> distanceFarms = new List<float>();
         private GameObject farmParent;
         private int totalFarms = 0;
         private int closestFarm;
+        private bool gettingFood;
         #endregion
 
         #region Mining
-        [SerializeField] private List<GameObject> mines;
-        [SerializeField] private List<float> distanceMines;
+        private List<GameObject> mines = new List<GameObject>();
+        private List<float> distanceMines = new List<float>();
         private GameObject miningParent;
         private int totalMines = 0;
         private int closestMine;
+        private bool gettingStone;
         #endregion
 
         #region Wood Chopping
-        [SerializeField] private List<GameObject> woods;
-        [SerializeField] private List<float> distanceWoods;
+        private List<GameObject> woods = new List<GameObject>();
+        private List<float> distanceWoods = new List<float>();
         private GameObject woodParent;
         private int totalWoods = 0;
         private int closestWood;
+        private bool gettingWood;
         #endregion
         #endregion
 
@@ -56,6 +61,8 @@ namespace RTS
             totalFarms = farmParent.transform.childCount;
             totalMines = miningParent.transform.childCount;
             totalWoods = woodParent.transform.childCount;
+
+            addResources = GameObject.FindObjectOfType<ResourceManager>();
         }
 
         private void Start()
@@ -81,8 +88,9 @@ namespace RTS
 
         public void MoveUnit(Vector3 position)
         {
-            playerInput = true;
             agent.SetDestination(position);
+            playerInput = true;
+            reachedDest = false;
         }
 
         private void Update()
@@ -104,8 +112,13 @@ namespace RTS
                         distanceFarms[i] = Vector3.Distance(transform.position, farms[i].transform.position);
                     }
                     closestFarm = distanceFarms.IndexOf(distanceFarms.Min());
-                    if(!playerInput)
+                    if(!playerInput && !reachedDest)
                         agent.SetDestination(farms[closestFarm].transform.position);
+                    if (reachedDest && !gettingFood)
+                    {
+                        Invoke("GetFood", 1f);
+                        gettingFood = true;
+                    }
                 }
             }
             if(job == 1)
@@ -118,8 +131,13 @@ namespace RTS
                         distanceMines[i] = Vector3.Distance(transform.position, mines[i].transform.position);
                     }
                     closestMine = distanceMines.IndexOf(distanceMines.Min());
-                    if(!playerInput)
+                    if(!playerInput && !reachedDest)
                         agent.SetDestination(mines[closestMine].transform.position);
+                    if (reachedDest && !gettingStone)
+                    {
+                        Invoke("GetStone", 1f);
+                        gettingStone = true;
+                    }
                 }
             }
             if(job == 2)
@@ -132,10 +150,42 @@ namespace RTS
                         distanceWoods[i] = Vector3.Distance(transform.position, woods[i].transform.position);
                     }
                     closestWood = distanceWoods.IndexOf(distanceWoods.Min());
-                    if(!playerInput)
+                    if(!playerInput && !reachedDest)
                         agent.SetDestination(woods[closestWood].transform.position);
+                    if(reachedDest && !gettingWood)
+                    {
+                        Invoke("GetWood", 1f);
+                        gettingWood = true;
+                    }
                 }
             }
+            if (!playerInput && Vector3.Distance(transform.position, agent.destination) < 10)
+                reachedDest = true;
+            if (!playerInput && Vector3.Distance(transform.position, agent.destination) > 10)
+                reachedDest = false;
+
+            if (reachedDest)
+                agent.isStopped = true;
+            if (!reachedDest)
+                agent.isStopped = false;
+        }
+
+        private void GetFood()
+        {
+            addResources.food++;
+            gettingFood = false;
+        }
+
+        private void GetStone()
+        {
+            addResources.stone++;
+            gettingStone = false;
+        }
+
+        private void GetWood()
+        {
+            addResources.wood++;
+            gettingWood = false;
         }
     }
 }
