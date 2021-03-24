@@ -114,8 +114,10 @@ namespace RTS
             if (Vector3.Distance(agent.destination, transform.position) < 5)
                 playerInput = false;
 
-            if (job == 0)
+            if (job == 0 && !delStone && !delWood)
             {
+                delStone = false;
+                delWood = false;
                 indicatorColor.material.SetColor("_BaseColor", Color.yellow);
                 if (farms.Count > 0)
                 {
@@ -124,7 +126,7 @@ namespace RTS
 
                     closestFarm = distanceFarms.IndexOf(distanceFarms.Min());
 
-                    if(!playerInput)
+                    if (!playerInput)
                         agent.SetDestination(farms[closestFarm].transform.position);
 
                     if (reachedDest && !gettingFood)
@@ -136,6 +138,7 @@ namespace RTS
             }
             if(job == 1)
             {
+                delWood = false;
                 indicatorColor.material.SetColor("_BaseColor", Color.grey);
                 if (mines.Count > 0)
                 {
@@ -144,18 +147,37 @@ namespace RTS
 
                     closestMine = distanceMines.IndexOf(distanceMines.Min());
 
-                    if(!playerInput && !delStone)
+                    if (!playerInput && !delStone)
                         agent.SetDestination(mines[closestMine].transform.position);
+
+                    DistanceCheck();
 
                     if (reachedDest && !gettingStone && thisStone <= 10 && !delStone)
                     {
                         Invoke("GetStone", 1f);
                         gettingStone = true;
                     }
+
+                    if (thisStone == 10 && reachedDest && !delWood)
+                    {
+                        agent.SetDestination(mineStation.transform.position);
+                        delStone = true;
+                    }
+
+                    DistanceCheck();
+
+                    if (delStone && reachedDest && !givingStone && thisStone > 0)
+                    {
+                        Invoke("DeliverStone", 1f);
+                        givingStone = true;
+                    }
+                    if (thisStone <= 0)
+                        delStone = false;
                 }
             }
             if(job == 2)
             {
+                delStone = false;
                 indicatorColor.material.SetColor("_BaseColor", Color.green);
                 if (woods.Count > 0)
                 {
@@ -164,53 +186,43 @@ namespace RTS
 
                     closestWood = distanceWoods.IndexOf(distanceWoods.Min());
 
-                    if(!playerInput && !delWood)
+                    if (!playerInput && !delWood)
                         agent.SetDestination(woods[closestWood].transform.position);
+
+                    DistanceCheck();
 
                     if(reachedDest && !gettingWood && thisWood < 10 && !delWood)
                     {
                         Invoke("GetWood", 1f);
                         gettingWood = true;
                     }
+
+                    if (thisWood == 10 && reachedDest && !delStone)
+                    {
+                        agent.SetDestination(woodStation.transform.position);
+                        delWood = true;
+                    }
+
+                    DistanceCheck();
+
+                    if (delWood && reachedDest && !givingWood && thisWood > 0)
+                    {
+                        Invoke("DeliverWood", 1f);
+                        givingWood = true;
+                    }
+                    if (thisWood <= 0)
+                        delWood = false;
                 }
             }
 
-            if (!playerInput && Vector3.Distance(transform.position, agent.destination) < 10)
-                reachedDest = true;
-            if (!playerInput && Vector3.Distance(transform.position, agent.destination) > 10)
-                reachedDest = false;
+            DistanceCheck();
 
             agent.isStopped = reachedDest ? true : false;
-
-            if (thisWood >= 10 && reachedDest)
-            {
-                agent.SetDestination(woodStation.transform.position);
-                delWood = true;
-            }
-            if(delWood && reachedDest && !givingWood && thisWood > 0)
-            {
-                Invoke("DeliverWood", 1f);
-                givingWood = true;
-            }
-            if (thisWood <= 0)
-                delWood = false;
-
-            if (thisStone >= 10 && reachedDest)
-            {
-                agent.SetDestination(mineStation.transform.position);
-                delStone = true;
-            }
-            if (delStone && reachedDest && !givingStone && thisStone > 0)
-            {
-                Invoke("DeliverStone", 1f);
-                givingStone = true;
-            }
-            if (thisStone <= 0)
-                delStone = false;
 
             Debug.Log("Stone " + thisStone);
         }
 
+        #region GetResourceFunctions
         private void GetFood()
         {
             addResources.food++;
@@ -243,6 +255,15 @@ namespace RTS
             thisStone--;
             addResources.stone++;
             givingStone = false;
+        }
+        #endregion
+
+        private void DistanceCheck() 
+        {
+            if (!playerInput && Vector3.Distance(transform.position, agent.destination) < 10)
+                reachedDest = true;
+            if (!playerInput && Vector3.Distance(transform.position, agent.destination) > 10)
+                reachedDest = false;
         }
     }
 }
