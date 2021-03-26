@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.UI;
+using TMPro;
 
 namespace RTS
 {
@@ -9,11 +11,14 @@ namespace RTS
         [SerializeField] private Box box;
         [SerializeField] private Collider[] selections;
         [SerializeField] private GameObject projectorObject;
+        [SerializeField] private GameObject dropdownJobs;
+        [SerializeField] private TextMeshProUGUI unitsText;
         private DecalProjector projector;
         private List<Unit> unitsSelected = new List<Unit>();
         private Camera cam;
         private Vector3 startPos, dragPos;
         private Ray ray;
+        private string unitJob;
 
         private void Start()
         {
@@ -73,6 +78,32 @@ namespace RTS
                 {
                     unit.MoveUnit(hit.point);
                     unit.Selected(false);
+                }
+            }
+
+            if (unitsSelected.Count == 0)
+            {
+                dropdownJobs.SetActive(false);
+                dropdownJobs.GetComponent<Dropdown>().value = 0;
+                unitsText.text = "";
+            }
+            if (unitsSelected.Count > 0)
+            {
+                unitsText.text = "";
+                dropdownJobs.SetActive(true);
+                for(int i = 0; i < unitsSelected.Count; i++)
+                {
+                    if (unitsSelected[i].job == 0)
+                        unitJob = "None";
+                    if (unitsSelected[i].job == 1)
+                        unitJob = "Farmer";
+                    if (unitsSelected[i].job == 2)
+                        unitJob = "Miner";
+                    if (unitsSelected[i].job == 3)
+                        unitJob = "Lumberjack";
+
+                    unitsText.text += $"Villager {i} | Job = {unitJob} | Wood = {unitsSelected[i].thisWood} | Stone = {unitsSelected[i].thisStone}";
+                    unitsText.text += "\n";
                 }
             }
         }

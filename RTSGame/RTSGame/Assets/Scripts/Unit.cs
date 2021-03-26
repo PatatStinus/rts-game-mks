@@ -11,7 +11,7 @@ namespace RTS
         #region Variables
         #region General
         private ResourceManager addResources;
-        public int job = 0;
+        public int job = 1;
         public bool playerInput;
         private GameObject indicator;
         private Renderer indicatorColor;
@@ -36,7 +36,7 @@ namespace RTS
         private int totalMines = 0;
         private int closestMine;
         private bool gettingStone;
-        private int thisStone;
+        public int thisStone;
         private bool delStone;
         private bool givingStone;
         #endregion
@@ -49,7 +49,7 @@ namespace RTS
         private int totalWoods = 0;
         private int closestWood;
         private bool gettingWood;
-        private int thisWood;
+        public int thisWood;
         private bool delWood;
         private bool givingWood;
         #endregion
@@ -107,14 +107,14 @@ namespace RTS
 
         private void Update()
         {
-            //0 = Farming
-            //1 = Mining
-            //2 = Chopping wood
+            //1 = Farming
+            //2 = Mining
+            //3 = Chopping wood
 
             if (Vector3.Distance(agent.destination, transform.position) < 5)
                 playerInput = false;
 
-            if (job == 0 && !delStone && !delWood)
+            if (job == 1)
             {
                 delStone = false;
                 delWood = false;
@@ -136,7 +136,7 @@ namespace RTS
                     }
                 }
             }
-            if(job == 1)
+            if(job == 2)
             {
                 delWood = false;
                 indicatorColor.material.SetColor("_BaseColor", Color.grey);
@@ -152,7 +152,7 @@ namespace RTS
 
                     DistanceCheck();
 
-                    if (reachedDest && !gettingStone && thisStone <= 10 && !delStone)
+                    if (reachedDest && !gettingStone && thisStone < 10 && !delStone)
                     {
                         Invoke("GetStone", 1f);
                         gettingStone = true;
@@ -175,7 +175,7 @@ namespace RTS
                         delStone = false;
                 }
             }
-            if(job == 2)
+            if(job == 3)
             {
                 delStone = false;
                 indicatorColor.material.SetColor("_BaseColor", Color.green);
@@ -218,8 +218,6 @@ namespace RTS
             DistanceCheck();
 
             agent.isStopped = reachedDest ? true : false;
-
-            Debug.Log("Stone " + thisStone);
         }
 
         #region GetResourceFunctions
@@ -231,15 +229,13 @@ namespace RTS
 
         private void GetStone()
         {
-            if(thisStone < 10)
-                thisStone++;
+            thisStone++;
             gettingStone = false;
         }
 
         private void GetWood()
         {
-            if(thisWood < 10)
-                thisWood++;
+            thisWood++;
             gettingWood = false;
         }
 
