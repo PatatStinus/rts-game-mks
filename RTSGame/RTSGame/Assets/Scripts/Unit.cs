@@ -93,7 +93,6 @@ namespace RTS
                 woods.Add(woodParent.transform.GetChild(i).gameObject);
                 distanceWoods.Add(0);
             }
-
         }
 
         public void Selected(bool select) { indicator.SetActive(select); }

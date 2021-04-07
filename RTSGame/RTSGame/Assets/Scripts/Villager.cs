@@ -33,5 +33,5 @@ public class Villager : MonoBehaviour
         vSpawnCount++;
         if (vSpawnCount > 10)
             vSpawnCount = 10;
-    }
+    } 
 }
