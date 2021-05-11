@@ -34,7 +34,7 @@ public class Villager : MonoBehaviour
     }
     public void SpawnObject()
     {
-        if(villagerCount < totalVillagers && vSpawnCount < totalVillagers)
+        if(villagerCount < totalVillagers &&  villagerCount + vSpawnCount < totalVillagers)
         {
             vSpawnCount++;
             if (vSpawnCount > 10)
