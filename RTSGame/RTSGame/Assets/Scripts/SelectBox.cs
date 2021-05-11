@@ -81,6 +81,7 @@ namespace RTS
                 }
             }
 
+            //UI Dropdown
             if (unitsSelected.Count == 0)
             {
                 dropdownJobs.SetActive(false);

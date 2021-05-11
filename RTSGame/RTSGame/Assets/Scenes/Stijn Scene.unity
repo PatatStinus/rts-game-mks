@@ -1478,6 +1478,7 @@ MonoBehaviour:
   civSpawn: {fileID: 1527951695}
   villagerQueue: {fileID: 335814956}
   circleTimer: {fileID: 1906965182}
+  totalVillagers: 3
 --- !u!114 &405538121
 MonoBehaviour:
   m_ObjectHideFlags: 0
