@@ -31,7 +31,7 @@ namespace RTS
         #region Mining
         private List<GameObject> mines = new List<GameObject>();
         private List<float> distanceMines = new List<float>();
-        private GameObject mineStation;
+        [SerializeField] private GameObject mineStation;
         private GameObject miningParent;
         private int totalMines = 0;
         private int closestMine;
@@ -44,7 +44,7 @@ namespace RTS
         #region Wood Chopping
         private List<GameObject> woods = new List<GameObject>();
         private List<float> distanceWoods = new List<float>();
-        private GameObject woodStation;
+        [SerializeField] private GameObject woodStation;
         private GameObject woodParent;
         private int totalWoods = 0;
         private int closestWood;
@@ -185,7 +185,7 @@ namespace RTS
 
                     closestWood = distanceWoods.IndexOf(distanceWoods.Min());
 
-                    if (!playerInput && !delWood)
+                    if (!playerInput && !delWood) 
                         agent.SetDestination(woods[closestWood].transform.position);
 
                     DistanceCheck();
