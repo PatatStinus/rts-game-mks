@@ -4,20 +4,49 @@ using UnityEngine;
 
 public class BuildingSpawnBase : MonoBehaviour
 {
-    [SerializeField] private GameObject buildingPrefab;
+    [SerializeField] private GameObject barrackPrefab;
+    private bool spawnBarrack;
+    private bool spawnWood;
+    private bool spawnMine;
+    private bool spawnFarm;
 
     void Update()
     {
-        if(Input.GetMouseButtonUp(0))
+        if(Input.GetMouseButtonUp(0) && spawnBarrack)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if(Physics.Raycast(ray, out hit) && hit.transform.name == "Plane")
             {
-                buildingPrefab.transform.position = new Vector3(hit.point.x, buildingPrefab.transform.localScale.y / 2, hit.point.z);
-                Instantiate(buildingPrefab);
+                barrackPrefab.transform.position = new Vector3(hit.point.x, barrackPrefab.transform.localScale.y / 2, hit.point.z);
+                Instantiate(barrackPrefab);
             }
         }
+    }
+
+    public void SpawnFarm()
+    {
+
+    }
+
+    public void SpawnMine()
+    {
+
+    }
+
+    public void SpawnWood()
+    {
+
+    }
+
+    public void SpawnBarracks()
+    {
+        spawnBarrack = true;
+    }
+
+    public void SpawnTraining()
+    {
+
     }
 }
