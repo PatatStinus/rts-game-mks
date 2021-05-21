@@ -101,7 +101,9 @@ MonoBehaviour:
   job: 0
   playerInput: 0
   reachedDest: 0
+  mineStation: {fileID: 0}
   thisStone: 0
+  woodStation: {fileID: 0}
   thisWood: 0
 --- !u!65 &9084280966497512893
 BoxCollider:
@@ -125,7 +127,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9084280966497512899}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.01
+  m_Radius: 1
   m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
