@@ -70,7 +70,6 @@ namespace RTS
                         unitsSelected.Add(unit);
                     }
                 }
-
                 for(int i = 0; i < unitsSelected.Count; i++)
                     unitsSelected[i].villagerArray = i;
             }
@@ -116,10 +115,7 @@ namespace RTS
         {
             //Dropdown menu to switch job of villager
             foreach(var unit in unitsSelected)
-            {
                 unit.job = job;
-                unit.reachedDest = false;
-            }
         }
 
         private void OnDrawGizmos()

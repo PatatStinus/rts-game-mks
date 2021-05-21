@@ -10,15 +10,14 @@ namespace RTS
     {
         #region Variables
         #region General
-        public Villager villagersOnField;
+        public int job = 1;
         public int villagerArray;
         private ResourceManager addResources;
-        public int job = 1;
-        public bool playerInput;
+        private bool playerInput;
         private GameObject indicator;
         private Renderer indicatorColor;
         private NavMeshAgent agent;
-        public bool reachedDest;
+        private bool reachedDest;
         #endregion
 
         #region Farm
@@ -33,7 +32,7 @@ namespace RTS
         #region Mining
         private List<GameObject> mines = new List<GameObject>();
         private List<float> distanceMines = new List<float>();
-        [SerializeField] private GameObject mineStation;
+        private GameObject mineStation;
         private GameObject miningParent;
         private int totalMines = 0;
         private int closestMine;
@@ -46,7 +45,7 @@ namespace RTS
         #region Wood Chopping
         private List<GameObject> woods = new List<GameObject>();
         private List<float> distanceWoods = new List<float>();
-        [SerializeField] private GameObject woodStation;
+        private GameObject woodStation;
         private GameObject woodParent;
         private int totalWoods = 0;
         private int closestWood;
@@ -265,17 +264,18 @@ namespace RTS
 
         private void setDestination(Vector3 pos)
         {
-            float anglesBetweenVil = 360 / villagersOnField.villagerCount;
-            int distanceLength = villagersOnField.villagerCount;
-            float angleVillager = anglesBetweenVil * (villagerArray + 1);
+            float radius = 1 / 10f;
 
-            Debug.Log(Mathf.Sin(36) * 10);
+            var radians = 2 * Mathf.PI / 1 * villagerArray;
 
-            for (int i = 0; i < villagersOnField.villagerCount; i++) 
-            {
+            var vertical = Mathf.Sin(radians);
+            var horizontal = Mathf.Sin(radians);
 
-            }
-            agent.SetDestination(new Vector3(pos.x, pos.y, pos.z));
+            var spawnDir = new Vector3(horizontal, 0, vertical);
+
+            var spawnPos = pos + spawnDir * radius;
+
+            agent.SetDestination(spawnPos);
         }
     }
 }
