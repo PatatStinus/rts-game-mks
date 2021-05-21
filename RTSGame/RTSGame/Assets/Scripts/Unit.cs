@@ -265,8 +265,17 @@ namespace RTS
 
         private void setDestination(Vector3 pos)
         {
-            //360 / villagersOnField.villagerCount;
-            //VillagerArray
+            float anglesBetweenVil = 360 / villagersOnField.villagerCount;
+            int distanceLength = villagersOnField.villagerCount;
+            float angleVillager = anglesBetweenVil * (villagerArray + 1);
+
+            Debug.Log(Mathf.Sin(36) * 10);
+
+            for (int i = 0; i < villagersOnField.villagerCount; i++) 
+            {
+
+            }
+            agent.SetDestination(new Vector3(pos.x, pos.y, pos.z));
         }
     }
 }
