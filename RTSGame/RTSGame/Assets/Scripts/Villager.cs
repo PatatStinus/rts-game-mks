@@ -12,7 +12,7 @@ public class Villager : MonoBehaviour
     [SerializeField] private Image circleTimer;
     private float cooldownTime = 10f;
     private int vSpawnCount;
-    private int villagerCount = 0;
+    public int villagerCount = 0;
     public int totalVillagers;
 
     private void Update()

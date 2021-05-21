@@ -12,7 +12,7 @@ public class BuildingSpawnBase : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonUp(0) && spawnBarrack)
+        /*if(Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -22,22 +22,22 @@ public class BuildingSpawnBase : MonoBehaviour
                 barrackPrefab.transform.position = new Vector3(hit.point.x, barrackPrefab.transform.localScale.y / 2, hit.point.z);
                 Instantiate(barrackPrefab);
             }
-        }
+        }*/
     }
 
     public void SpawnFarm()
     {
-
+        spawnFarm = true;
     }
 
     public void SpawnMine()
     {
-
+        spawnMine = true;
     }
 
     public void SpawnWood()
     {
-
+        spawnWood = true;
     }
 
     public void SpawnBarracks()
