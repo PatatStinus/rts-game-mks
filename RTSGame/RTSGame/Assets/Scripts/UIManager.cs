@@ -5,18 +5,22 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Linq;
 using System;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     #region Timer
-    [SerializeField] public GameObject Timer;
+    
     [SerializeField] public GameObject createVillager;
     [SerializeField] public GameObject spawnLoc;
+    [SerializeField] public TextMeshProUGUI villagerQueue;
+    [SerializeField] public GameObject Timer;
     private float cooldownTime = 10f;
     private int vSpawnCount;
-    private int villagerCount = 0;
+    public int villagerCount = 0;
     public int totalVillagers;
-    void Update()
+
+    private void Update()
     {
         if (vSpawnCount > 0)
         {
@@ -29,6 +33,7 @@ public class UIManager : MonoBehaviour
                 vSpawnCount--;
                 Debug.Log(villagerCount);
             }
+            villagerQueue.text = vSpawnCount.ToString("0");
         }
     }
     public void SpawnObject()

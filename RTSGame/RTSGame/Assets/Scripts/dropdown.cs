@@ -16,12 +16,12 @@ public class dropdown : MonoBehaviour
             buttonActive = false;
             if (panelOpen)
             {
-                panelDropdown.Play("closedropdown");
+                panelDropdown.Play("closePanel");
                 panelOpen = false;
             }
             else
             {
-                panelDropdown.Play("panelOPenDropDown");
+                panelDropdown.Play("openPanel");
                 panelOpen = true;
             }
         }
