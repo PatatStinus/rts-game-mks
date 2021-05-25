@@ -10,8 +10,10 @@ namespace RTS
     {
         #region Variables
         #region General
+        Vector3 spawnGizmo = new Vector3();
         public int job = 1;
         public int villagerArray;
+        public int totalVillagers;
         private ResourceManager addResources;
         private bool playerInput;
         private GameObject indicator;
@@ -100,7 +102,7 @@ namespace RTS
 
         public void MoveUnit(Vector3 position)
         {
-            setDestination(position);
+            SetDestination(position);
             playerInput = true;
             reachedDest = false;
         }
@@ -127,7 +129,7 @@ namespace RTS
                     closestFarm = distanceFarms.IndexOf(distanceFarms.Min());
 
                     if (!playerInput)
-                        setDestination(farms[closestFarm].transform.position);
+                        SetDestination(farms[closestFarm].transform.position);
 
                     if (reachedDest && !gettingFood)
                     {
@@ -148,7 +150,7 @@ namespace RTS
                     closestMine = distanceMines.IndexOf(distanceMines.Min());
 
                     if (!playerInput && !delStone)
-                        setDestination(mines[closestMine].transform.position);
+                        SetDestination(mines[closestMine].transform.position);
 
                     DistanceCheck();
 
@@ -160,7 +162,7 @@ namespace RTS
 
                     if (thisStone == 10 && reachedDest && !delWood)
                     {
-                        setDestination(mineStation.transform.position);
+                        SetDestination(mineStation.transform.position);
                         delStone = true;
                     }
 
@@ -187,7 +189,7 @@ namespace RTS
                     closestWood = distanceWoods.IndexOf(distanceWoods.Min());
 
                     if (!playerInput && !delWood) 
-                        setDestination(woods[closestWood].transform.position);
+                        SetDestination(woods[closestWood].transform.position);
 
                     DistanceCheck();
 
@@ -199,7 +201,7 @@ namespace RTS
 
                     if (thisWood == 10 && reachedDest && !delStone)
                     {
-                        setDestination(woodStation.transform.position);
+                        SetDestination(woodStation.transform.position);
                         delWood = true;
                     }
 
@@ -256,17 +258,17 @@ namespace RTS
 
         private void DistanceCheck() 
         {
-            if (!playerInput && Vector3.Distance(transform.position, agent.destination) < 10)
+            if (!playerInput && Vector3.Distance(transform.position, agent.destination) < 1)
                 reachedDest = true;
-            if (!playerInput && Vector3.Distance(transform.position, agent.destination) > 10)
+            if (!playerInput && Vector3.Distance(transform.position, agent.destination) > 1)
                 reachedDest = false;
         }
 
-        private void setDestination(Vector3 pos)
+        private void SetDestination(Vector3 pos)
         {
-            float radius = 1 / 10f;
+            float radius = totalVillagers / 10f;
 
-            var radians = 2 * Mathf.PI / 1 * villagerArray;
+            var radians = 2 * Mathf.PI / totalVillagers * villagerArray;
 
             var vertical = Mathf.Sin(radians);
             var horizontal = Mathf.Sin(radians);
@@ -276,6 +278,7 @@ namespace RTS
             var spawnPos = pos + spawnDir * radius;
 
             agent.SetDestination(spawnPos);
+            Debug.Log($"De Pos van {villagerArray} = {spawnPos}");
         }
     }
 }
