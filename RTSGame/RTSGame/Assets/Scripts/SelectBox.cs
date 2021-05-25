@@ -71,7 +71,10 @@ namespace RTS
                     }
                 }
                 for(int i = 0; i < unitsSelected.Count; i++)
+                {
+                    unitsSelected[i].totalVillagers = unitsSelected.Count;
                     unitsSelected[i].villagerArray = i;
+                }
             }
             //Move villagers
             if (Physics.Raycast(ray, out hit) && unitsSelected.Count > 0 && Input.GetMouseButtonDown(1))
