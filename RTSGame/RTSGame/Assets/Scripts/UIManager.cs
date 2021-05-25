@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject createVillager;
     [SerializeField] public GameObject spawnLoc;
     [SerializeField] public TextMeshProUGUI villagerQueue;
-    [SerializeField] public GameObject Timer;
+    [SerializeField] public Slider Timer;
     private float cooldownTime = 10f;
     private int vSpawnCount;
     public int villagerCount = 0;
@@ -31,9 +31,9 @@ public class UIManager : MonoBehaviour
                 villagerCount++;
                 cooldownTime = 10f;
                 vSpawnCount--;
-                Debug.Log(villagerCount);
             }
             villagerQueue.text = vSpawnCount.ToString("0");
+            Timer.value = cooldownTime / 10f;
         }
     }
     public void SpawnObject()

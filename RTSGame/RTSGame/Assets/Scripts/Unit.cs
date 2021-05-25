@@ -10,7 +10,6 @@ namespace RTS
     {
         #region Variables
         #region General
-        Vector3 spawnGizmo = new Vector3();
         public int job = 1;
         public int villagerArray;
         public int totalVillagers;

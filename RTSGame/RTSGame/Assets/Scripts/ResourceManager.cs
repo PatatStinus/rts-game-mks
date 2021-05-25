@@ -5,7 +5,7 @@ using TMPro;
 
 public class ResourceManager : MonoBehaviour
 {
-    public int wood = 0;
+    public int wood = 10;
     public int food = 0;
     public int stone = 0;
 

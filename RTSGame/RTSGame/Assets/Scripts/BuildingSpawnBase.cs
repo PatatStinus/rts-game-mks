@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BuildingSpawnBase : MonoBehaviour
 {
-    [SerializeField] private GameObject barrackPrefab;
+    [SerializeField] private ResourceManager resources;
+    [SerializeField] private GameObject farmPrefab;
     private bool spawnBarrack;
     private bool spawnWood;
     private bool spawnMine;
@@ -12,27 +13,29 @@ public class BuildingSpawnBase : MonoBehaviour
 
     void Update()
     {
-        /*if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
-            if(Physics.Raycast(ray, out hit) && hit.transform.name == "Plane")
+            
+            if (Physics.Raycast(ray, out hit) && hit.transform.name == "Plane" && spawnFarm && resources.wood >= 10)
             {
-                barrackPrefab.transform.position = new Vector3(hit.point.x, barrackPrefab.transform.localScale.y / 2, hit.point.z);
-                Instantiate(barrackPrefab);
+                farmPrefab.transform.position = new Vector3(hit.point.x, farmPrefab.transform.localScale.y / 2, hit.point.z);
+                Instantiate(farmPrefab);
+                spawnFarm = false;
+                resources.wood -= 10;
             }
-        }*/
+        }
     }
 
     public void SpawnFarm()
     {
-        spawnFarm = true;
+        StartCoroutine(TimeBuilding());
     }
 
     public void SpawnMine()
     {
-        spawnMine = true;
+        
     }
 
     public void SpawnWood()
@@ -48,5 +51,11 @@ public class BuildingSpawnBase : MonoBehaviour
     public void SpawnTraining()
     {
 
+    }
+    IEnumerator TimeBuilding()
+    {
+        yield return new WaitForSeconds(0.1f);
+        spawnFarm = true;
+        spawnMine = true;
     }
 }
