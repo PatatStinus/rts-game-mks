@@ -1001,7 +1001,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2674bbd12b0dc074d90f486296667746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingPrefab: {fileID: 207298831450661633, guid: 90c8b68026ef9884fa63babcfcf7ae50, type: 3}
+  resources: {fileID: 0}
+  farmPrefab: {fileID: 0}
 --- !u!1 &687205136
 GameObject:
   m_ObjectHideFlags: 0

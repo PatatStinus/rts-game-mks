@@ -89,14 +89,12 @@ namespace RTS
             //UI Dropdown
             if (unitsSelected.Count == 0)
             {
-                dropdownJobs.SetActive(true);
                 dropdownJobs.GetComponent<Dropdown>().value = 0;
                 unitsText.text = "";
             }
             if (unitsSelected.Count > 0)
             {
                 unitsText.text = "";
-                dropdownJobs.SetActive(true);
                 for(int i = 0; i < unitsSelected.Count; i++)
                 {
                     if (unitsSelected[i].job == 0)
@@ -117,15 +115,8 @@ namespace RTS
         public void ChangeJob(int job)
         {
             //Dropdown menu to switch job of villager
-            foreach(var unit in unitsSelected)
+            foreach (var unit in unitsSelected)
                 unit.job = job;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-
-            Gizmos.DrawWireCube(box.Center, box.Size);
         }
     }
 

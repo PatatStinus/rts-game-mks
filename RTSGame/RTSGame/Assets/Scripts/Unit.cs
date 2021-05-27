@@ -270,7 +270,7 @@ namespace RTS
             var radians = 2 * Mathf.PI / totalVillagers * villagerArray;
 
             var vertical = Mathf.Sin(radians);
-            var horizontal = Mathf.Sin(radians);
+            var horizontal = Mathf.Cos(radians);
 
             var spawnDir = new Vector3(horizontal, 0, vertical);
 
