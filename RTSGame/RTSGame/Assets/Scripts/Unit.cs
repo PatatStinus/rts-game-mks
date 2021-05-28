@@ -130,6 +130,8 @@ namespace RTS
                     if (!playerInput)
                         agent.SetDestination(farms[closestFarm].transform.position);
 
+                    DistanceCheck();
+
                     if (reachedDest && !gettingFood)
                     {
                         Invoke("GetFood", 1f);
@@ -266,9 +268,18 @@ namespace RTS
 
         private void SetDestination(Vector3 pos)
         {
-            float radius = totalVillagers / 10f;
+            float newTotalVillagers = totalVillagers;
 
-            var radians = 2 * Mathf.PI / totalVillagers * villagerArray;
+            if(totalVillagers > 14) 
+            {
+                newTotalVillagers = Mathf.Floor(totalVillagers / 3f * 2f);
+                if(villagerArray >= Mathf.Floor(totalVillagers / 3f * 2f))
+                    newTotalVillagers = Mathf.Ceil(totalVillagers / 3f);
+            }
+
+            float radius = newTotalVillagers * 3;
+
+            var radians = 2 * Mathf.PI / newTotalVillagers * villagerArray;
 
             var vertical = Mathf.Sin(radians);
             var horizontal = Mathf.Cos(radians);

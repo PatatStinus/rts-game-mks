@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 4eb12d272eefa5046b5e5d7574496450, type: 2}
 --- !u!1 &49046965
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,7 +2906,6 @@ GameObject:
   m_Component:
   - component: {fileID: 947693614}
   - component: {fileID: 947693610}
-  - component: {fileID: 947693613}
   - component: {fileID: 947693612}
   - component: {fileID: 947693611}
   - component: {fileID: 947693609}
@@ -2934,7 +2933,7 @@ MonoBehaviour:
   villagerQueue: {fileID: 896052581}
   Timer: {fileID: 1818231900}
   villagerCount: 0
-  totalVillagers: 15
+  totalVillagers: 30
 --- !u!114 &947693610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2968,6 +2967,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resources: {fileID: 947693612}
   farmPrefab: {fileID: 207298831450661633, guid: 90c8b68026ef9884fa63babcfcf7ae50, type: 3}
+  minePrefab: {fileID: 0}
+  woodPrefab: {fileID: 0}
+  barracksPrefab: {fileID: 0}
 --- !u!114 &947693612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2986,20 +2988,6 @@ MonoBehaviour:
   woodAmount: {fileID: 2103705663}
   foodAmount: {fileID: 1975264262}
   stoneAmount: {fileID: 522521789}
---- !u!114 &947693613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947693608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab2def2e2c514b549a219698f41cff98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  farm: {fileID: 207298831450661633, guid: 90c8b68026ef9884fa63babcfcf7ae50, type: 3}
-  farmParent: {fileID: 625075599}
 --- !u!4 &947693614
 Transform:
   m_ObjectHideFlags: 0
@@ -4743,7 +4731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ef8c68bade09b41aca258d42a632f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastTab: 0
+  lastTab: 1
   movementSettingsFoldout: 0
   zoomingSettingsFoldout: 0
   heightSettingsFoldout: 0
@@ -4751,12 +4739,12 @@ MonoBehaviour:
   useFixedUpdate: 0
   keyboardMovementSpeed: 25
   panningSpeed: 25
-  autoHeight: 1
+  autoHeight: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
   maxHeight: 20
-  minHeight: 2
+  minHeight: 20
   heightDampening: 100
   scrollWheelZoomingSensitivity: 500
   useKeyboardInput: 1

@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
             {
                 Instantiate(createVillager, spawnLoc.transform);
                 villagerCount++;
-                cooldownTime = 10f;
+                cooldownTime = 3f;
                 vSpawnCount--;
             }
             villagerQueue.text = vSpawnCount.ToString("0");
