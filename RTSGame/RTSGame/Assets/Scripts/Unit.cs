@@ -128,7 +128,7 @@ namespace RTS
                     closestFarm = distanceFarms.IndexOf(distanceFarms.Min());
 
                     if (!playerInput)
-                        SetDestination(farms[closestFarm].transform.position);
+                        agent.SetDestination(farms[closestFarm].transform.position);
 
                     if (reachedDest && !gettingFood)
                     {
@@ -149,7 +149,7 @@ namespace RTS
                     closestMine = distanceMines.IndexOf(distanceMines.Min());
 
                     if (!playerInput && !delStone)
-                        SetDestination(mines[closestMine].transform.position);
+                        agent.SetDestination(mines[closestMine].transform.position);
 
                     DistanceCheck();
 
@@ -161,7 +161,7 @@ namespace RTS
 
                     if (thisStone == 10 && reachedDest && !delWood)
                     {
-                        SetDestination(mineStation.transform.position);
+                        agent.SetDestination(mineStation.transform.position);
                         delStone = true;
                     }
 
@@ -187,8 +187,9 @@ namespace RTS
 
                     closestWood = distanceWoods.IndexOf(distanceWoods.Min());
 
-                    if (!playerInput && !delWood) 
-                        SetDestination(woods[closestWood].transform.position);
+                    if (!playerInput && !delWood)
+                        agent.SetDestination(woods[closestWood].transform.position);
+
 
                     DistanceCheck();
 
@@ -200,7 +201,7 @@ namespace RTS
 
                     if (thisWood == 10 && reachedDest && !delStone)
                     {
-                        SetDestination(woodStation.transform.position);
+                        agent.SetDestination(woodStation.transform.position);
                         delWood = true;
                     }
 
@@ -257,9 +258,9 @@ namespace RTS
 
         private void DistanceCheck() 
         {
-            if (!playerInput && Vector3.Distance(transform.position, agent.destination) < 1)
+            if (!playerInput && Vector3.Distance(transform.position, agent.destination) < 10)
                 reachedDest = true;
-            if (!playerInput && Vector3.Distance(transform.position, agent.destination) > 1)
+            if (!playerInput && Vector3.Distance(transform.position, agent.destination) > 10)
                 reachedDest = false;
         }
 
@@ -277,7 +278,6 @@ namespace RTS
             var spawnPos = pos + spawnDir * radius;
 
             agent.SetDestination(spawnPos);
-            Debug.Log($"De Pos van {villagerArray} = {spawnPos}");
         }
     }
 }

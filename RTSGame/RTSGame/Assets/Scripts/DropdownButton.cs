@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class dropdown : MonoBehaviour
+public class DropdownButton : MonoBehaviour
 {
     public Animator panelDropdown;
     private bool panelOpen = false;
