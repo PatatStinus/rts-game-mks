@@ -2966,7 +2966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resources: {fileID: 947693612}
-  farmPrefab: {fileID: 207298831450661633, guid: 90c8b68026ef9884fa63babcfcf7ae50, type: 3}
+  farmPrefab: {fileID: 0}
   minePrefab: {fileID: 0}
   woodPrefab: {fileID: 0}
   barracksPrefab: {fileID: 0}
