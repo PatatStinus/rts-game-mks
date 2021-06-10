@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Buildings : MonoBehaviour
 {
-    //Placeholder script
-    //DON'T DELETE!
+    public float hp;
     public bool selected;
+    //Upgrade knop
+    //Info building
+    //Building level
+    //HP building
+    //Doorgeven aan UI Manager
 }
