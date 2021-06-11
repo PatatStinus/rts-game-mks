@@ -145,6 +145,12 @@ namespace RTS
                 indicatorColor.material.SetColor("_BaseColor", Color.grey);
                 if (mines.Count > 0)
                 {
+                    if (closestMine < mines.Count)
+                    {
+                        if (mines[closestMine] == null)
+                            mines.RemoveAt(closestMine);
+                    }
+
                     for (int i = 0; i < mines.Count; i++)
                         distanceMines[i] = Vector3.Distance(transform.position, mines[i].transform.position);
 
@@ -184,6 +190,12 @@ namespace RTS
                 indicatorColor.material.SetColor("_BaseColor", Color.green);
                 if (woods.Count > 0)
                 {
+                    if(closestWood < woods.Count)
+                    {
+                        if (woods[closestWood] == null)
+                            woods.RemoveAt(closestWood);
+                    }
+
                     for (int i = 0; i < woods.Count; i++)
                         distanceWoods[i] = Vector3.Distance(transform.position, woods[i].transform.position);
 
@@ -235,12 +247,14 @@ namespace RTS
         {
             thisStone++;
             gettingStone = false;
+            mines[closestMine].GetComponent<TreeRockHealth>().health -= 10;
         }
 
         private void GetWood()
         {
             thisWood++;
             gettingWood = false;
+            woods[closestWood].GetComponent<TreeRockHealth>().health -= 10;
         }
 
         private void DeliverWood()
