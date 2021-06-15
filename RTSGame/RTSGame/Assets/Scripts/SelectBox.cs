@@ -15,6 +15,7 @@ namespace RTS
         [SerializeField] private TextMeshProUGUI unitsText;
         private DecalProjector projector;
         private List<Unit> unitsSelected = new List<Unit>();
+        private List<Buildings> buildingSelected = new List<Buildings>();
         private Camera cam;
         private Vector3 startPos, dragPos;
         private Ray ray;
@@ -54,8 +55,11 @@ namespace RTS
 
                 foreach (var unit in unitsSelected)
                     unit.Selected(false);
+                if(buildingSelected.Count > 0)
+                    buildingSelected[0].selected = false;
 
                 unitsSelected.Clear();
+                buildingSelected.Clear();
 
                 projector.enabled = false;
                 selections = Physics.OverlapBox(box.Center, box.Extents, Quaternion.identity);
@@ -63,11 +67,18 @@ namespace RTS
                 foreach (var obj in selections)
                 {
                     Unit unit = obj.GetComponent<Unit>();
+                    Buildings building = obj.GetComponent<Buildings>();
 
                     if (unit != null)
                     {
                         unit.Selected(true);
                         unitsSelected.Add(unit);
+                    }
+
+                    if(building != null)
+                    {
+                        buildingSelected.Add(building);
+                        buildingSelected[0].selected = true;
                     }
                 }
                 for(int i = 0; i < unitsSelected.Count; i++)

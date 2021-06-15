@@ -889,6 +889,7 @@ GameObject:
   - component: {fileID: 299426230}
   - component: {fileID: 299426229}
   - component: {fileID: 299426228}
+  - component: {fileID: 299426231}
   m_Layer: 0
   m_Name: WoodStation
   m_TagString: Untagged
@@ -972,6 +973,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299426226}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &299426231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299426226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb95db05c408c3f44b2a05001232acb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selected: 0
 --- !u!1 &300923246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,6 +1140,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358160286}
   m_CullTransparentMesh: 1
+--- !u!1 &386157001 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 207298831450661633, guid: 90c8b68026ef9884fa63babcfcf7ae50, type: 3}
+  m_PrefabInstance: {fileID: 913571485}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &386157002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386157001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb95db05c408c3f44b2a05001232acb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selected: 0
 --- !u!1 &420707356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,6 +1931,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &683268520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 207298831450661633, guid: 90c8b68026ef9884fa63babcfcf7ae50, type: 3}
+  m_PrefabInstance: {fileID: 1953131212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &683268521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683268520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb95db05c408c3f44b2a05001232acb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selected: 0
 --- !u!1 &686469624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,6 +2459,7 @@ GameObject:
   - component: {fileID: 845995242}
   - component: {fileID: 845995241}
   - component: {fileID: 845995240}
+  - component: {fileID: 845995243}
   m_Layer: 0
   m_Name: MineStation
   m_TagString: Untagged
@@ -2492,6 +2543,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845995238}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &845995243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845995238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb95db05c408c3f44b2a05001232acb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selected: 0
 --- !u!1 &896052580
 GameObject:
   m_ObjectHideFlags: 0
