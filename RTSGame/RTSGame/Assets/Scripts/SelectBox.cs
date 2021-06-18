@@ -8,11 +8,11 @@ namespace RTS
 {
     public class SelectBox : MonoBehaviour
     {
-        [SerializeField] private Box box;
-        [SerializeField] private Collider[] selections;
         [SerializeField] private GameObject projectorObject;
         [SerializeField] private GameObject dropdownJobs;
         [SerializeField] private TextMeshProUGUI unitsText;
+        [SerializeField] private Box box;
+        private Collider[] selections;
         private DecalProjector projector;
         private List<Unit> unitsSelected = new List<Unit>();
         private List<Buildings> buildingSelected = new List<Buildings>();
@@ -55,6 +55,7 @@ namespace RTS
 
                 foreach (var unit in unitsSelected)
                     unit.Selected(false);
+
                 if(buildingSelected.Count > 0)
                     buildingSelected[0].selected = false;
 
@@ -69,13 +70,13 @@ namespace RTS
                     Unit unit = obj.GetComponent<Unit>();
                     Buildings building = obj.GetComponent<Buildings>();
 
-                    if (unit != null)
+                    if (unit != null && unit.tag != "Enemy")
                     {
                         unit.Selected(true);
                         unitsSelected.Add(unit);
                     }
 
-                    if(building != null)
+                    if(building != null && building.tag != "Enemy")
                     {
                         buildingSelected.Add(building);
                         buildingSelected[0].selected = true;

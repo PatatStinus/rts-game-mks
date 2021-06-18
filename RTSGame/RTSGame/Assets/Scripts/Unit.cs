@@ -55,6 +55,15 @@ namespace RTS
         private bool delWood;
         private bool givingWood;
         #endregion
+
+        #region Knight
+        private bool isAttacking;
+        private bool startAttack;
+        private GameObject attackingTarget;
+        private GameObject[] enemies;
+        private List<float> distEnemies = new List<float>();
+        private List<float> dotEnemies = new List<float>();
+        #endregion
         #endregion
 
         private void Awake()
@@ -115,7 +124,7 @@ namespace RTS
             if (Vector3.Distance(agent.destination, transform.position) < 5)
                 playerInput = false;
 
-            if (job == 1)
+            if(job == 1)
             {
                 delStone = false;
                 delWood = false;
@@ -143,18 +152,48 @@ namespace RTS
             {
                 delWood = false;
                 indicatorColor.material.SetColor("_BaseColor", Color.grey);
+                if (mines.Count == 0)
+                {
+                    agent.SetDestination(mineStation.transform.position);
+
+                    DistanceCheck();
+
+                    if (reachedDest && !givingStone && thisStone > 0)
+                    {
+                        Invoke("DeliverStone", 1f);
+                        givingStone = true;
+                    }
+                }
                 if (mines.Count > 0)
                 {
-                    if (closestMine < mines.Count)
+                    for (int i = mines.Count - 1; i >= 0; i--)
                     {
-                        if (mines[closestMine] == null)
-                            mines.RemoveAt(closestMine);
+                        if (mines[i] == null)
+                        {
+                            mines.RemoveAt(i);
+                            distanceMines.RemoveAt(i);
+                        }
+                    }
+
+                    if (mines.Count == 0)
+                    {
+                        agent.SetDestination(mineStation.transform.position);
+
+                        DistanceCheck();
+
+                        if (reachedDest && !givingStone && thisStone > 0)
+                        {
+                            Invoke("DeliverStone", 1f);
+                            givingStone = true;
+                        }
+                        return;
                     }
 
                     for (int i = 0; i < mines.Count; i++)
                         distanceMines[i] = Vector3.Distance(transform.position, mines[i].transform.position);
 
-                    closestMine = distanceMines.IndexOf(distanceMines.Min());
+                    if (distanceMines.Count > 0)
+                        closestMine = distanceMines.IndexOf(distanceMines.Min());
 
                     if (!playerInput && !delStone)
                         agent.SetDestination(mines[closestMine].transform.position);
@@ -188,18 +227,48 @@ namespace RTS
             {
                 delStone = false;
                 indicatorColor.material.SetColor("_BaseColor", Color.green);
+                if (woods.Count == 0)
+                {
+                    agent.SetDestination(woodStation.transform.position);
+
+                    DistanceCheck();
+
+                    if (reachedDest && !givingWood && thisWood > 0)
+                    {
+                        Invoke("DeliverWood", 1f);
+                        givingWood = true;
+                    }
+                }
                 if (woods.Count > 0)
                 {
-                    if(closestWood < woods.Count)
+                    for (int i = woods.Count - 1; i >= 0; i--)
                     {
-                        if (woods[closestWood] == null)
-                            woods.RemoveAt(closestWood);
+                        if (woods[i] == null)
+                        {
+                            woods.RemoveAt(i);
+                            distanceWoods.RemoveAt(i);
+                        }
+                    }
+
+                    if (woods.Count == 0)
+                    {
+                        agent.SetDestination(woodStation.transform.position);
+
+                        DistanceCheck();
+
+                        if (reachedDest && !givingWood && thisWood > 0)
+                        {
+                            Invoke("DeliverWood", 1f);
+                            givingWood = true;
+                        }
+                        return;
                     }
 
                     for (int i = 0; i < woods.Count; i++)
                         distanceWoods[i] = Vector3.Distance(transform.position, woods[i].transform.position);
-
-                    closestWood = distanceWoods.IndexOf(distanceWoods.Min());
+                    
+                    if(distanceWoods.Count > 0)
+                        closestWood = distanceWoods.IndexOf(distanceWoods.Min());
 
                     if (!playerInput && !delWood)
                         agent.SetDestination(woods[closestWood].transform.position);
@@ -230,6 +299,52 @@ namespace RTS
                         delWood = false;
                 }
             }
+            if(job == 4)
+            {
+                delStone = false;
+                delWood = false;
+                indicatorColor.material.SetColor("_BaseColor", Color.red);
+                enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                distEnemies.Clear();
+                dotEnemies.Clear();
+                for(int i = 0; i < enemies.Length; i++)
+                {
+                    distEnemies.Add(0);
+                    dotEnemies.Add(0);
+                    Vector3 forward = transform.TransformDirection(Vector3.forward);
+                    Vector3 toOther = enemies[i].transform.position - transform.position;
+                    distEnemies[i] = Vector3.Distance(transform.position, enemies[i].transform.position);
+                    dotEnemies[i] = Vector3.Dot(forward.normalized, toOther.normalized);
+                }
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    if (distEnemies[i] < 75 && dotEnemies[i] > 0.5)
+                    {
+                        agent.SetDestination(enemies[i].transform.position);
+                        indicatorColor.material.SetColor("_BaseColor", Color.black);
+                    }
+                    if (distEnemies[i] < 10 && dotEnemies[i] > 0.5)
+                    {
+                        indicatorColor.material.SetColor("_BaseColor", Color.red);
+                        attackingTarget = enemies[i];
+                        agent.Stop();
+                        agent.ResetPath();
+                        agent.isStopped = true;
+                        isAttacking = true;
+                        break;
+                    }
+                    else
+                    {
+                        agent.isStopped = false;
+                        isAttacking = false;
+                    }
+                }
+                if(isAttacking && !startAttack)
+                {
+                    startAttack = true;
+                    Invoke("Attack", 1f);
+                }
+            }
 
             DistanceCheck();
 
@@ -245,16 +360,22 @@ namespace RTS
 
         private void GetStone()
         {
-            thisStone++;
-            gettingStone = false;
-            mines[closestMine].GetComponent<TreeRockHealth>().health -= 10;
+            if(mines.Count > 0)
+            {
+                thisStone++;
+                gettingStone = false;
+                mines[closestMine].GetComponent<TreeRockHealth>().health -= 10;
+            }
         }
 
         private void GetWood()
         {
-            thisWood++;
-            gettingWood = false;
-            woods[closestWood].GetComponent<TreeRockHealth>().health -= 10;
+            if(woods.Count > 0)
+            {
+                thisWood++;
+                gettingWood = false;
+                woods[closestWood].GetComponent<TreeRockHealth>().health -= 10;
+            }
         }
 
         private void DeliverWood()
@@ -303,6 +424,13 @@ namespace RTS
             var spawnPos = pos + spawnDir * radius;
 
             agent.SetDestination(spawnPos);
+        }
+
+        private void Attack()
+        {
+            if(attackingTarget != null)
+                attackingTarget.GetComponent<HP_System>().health -= 10;
+            startAttack = false;
         }
     }
 }
