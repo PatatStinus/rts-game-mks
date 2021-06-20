@@ -322,6 +322,7 @@ namespace RTS
                     {
                         agent.SetDestination(enemies[i].transform.position);
                         indicatorColor.material.SetColor("_BaseColor", Color.black);
+                        Debug.Log("Enemy Detect");
                     }
                     if (distEnemies[i] < 10 && dotEnemies[i] > 0.5)
                     {
@@ -329,15 +330,11 @@ namespace RTS
                         attackingTarget = enemies[i];
                         agent.Stop();
                         agent.ResetPath();
-                        agent.isStopped = true;
                         isAttacking = true;
                         break;
                     }
                     else
-                    {
-                        agent.isStopped = false;
                         isAttacking = false;
-                    }
                 }
                 if(isAttacking && !startAttack)
                 {

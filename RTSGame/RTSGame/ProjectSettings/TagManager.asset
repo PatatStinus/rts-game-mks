@@ -8,6 +8,8 @@ TagManager:
   - Wood
   - Rock
   - Enemy
+  - Enemy1
+  - Enemy2
   layers:
   - Default
   - TransparentFX
