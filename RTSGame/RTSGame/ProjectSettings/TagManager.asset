@@ -14,6 +14,9 @@ TagManager:
   - Food3
   - Enemy3
   - Enemy
+  - Team1
+  - Team2
+  - Team3
   layers:
   - Default
   - TransparentFX

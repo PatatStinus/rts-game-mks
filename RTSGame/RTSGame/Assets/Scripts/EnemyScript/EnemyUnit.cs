@@ -10,7 +10,7 @@ public class EnemyUnit : MonoBehaviour
     #region General
     public int team;
     public int job = 1;
-    private ResourceManager addResources;
+    private AIManager addResources;
     private NavMeshAgent agent;
     private bool reachedDest;
     #endregion
@@ -85,7 +85,7 @@ public class EnemyUnit : MonoBehaviour
         totalMines = miningParent.transform.childCount;
         totalWoods = woodParent.transform.childCount;
 
-        addResources = GameObject.FindObjectOfType<ResourceManager>();
+        addResources = GameObject.FindGameObjectWithTag($"Team{team}").GetComponent<AIManager>();
 
         woodStation = woodParent.transform.GetChild(team).gameObject;
         mineStation = miningParent.transform.GetChild(team).gameObject;
@@ -374,7 +374,7 @@ public class EnemyUnit : MonoBehaviour
                     {
                         agent.SetDestination(enemies3[i].transform.position);
                     }
-                    if (distEnemies3[i] < 20 && dotEnemies3[i] > 0.5)
+                    if (distEnemies3[i] < 30 && dotEnemies3[i] > 0.5)
                     {
                         attackingTarget = enemies3[i];
                         agent.Stop();
@@ -490,6 +490,7 @@ public class EnemyUnit : MonoBehaviour
 
     private void GetEnemyPosition()
     {
+        distances.Clear();
         if (distEnemies1.Count != 0 && distEnemies1.Min() != 0)
             distances.Add(distEnemies1.Min());
         if (distEnemies2.Count != 0 && distEnemies2.Min() != 0)
