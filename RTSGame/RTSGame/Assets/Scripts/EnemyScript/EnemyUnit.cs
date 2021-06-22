@@ -54,14 +54,27 @@ public class EnemyUnit : MonoBehaviour
     private bool isAttacking;
     private bool startAttack;
     private GameObject attackingTarget;
-    private GameObject[] enemies;
-    private List<float> distEnemies = new List<float>();
-    private List<float> dotEnemies = new List<float>();
+    private GameObject[] enemies1;
+    private GameObject[] enemies2;
+    private GameObject[] enemies3;
+    private GameObject[] player;
+    private List<float> distEnemies1 = new List<float>();
+    private List<float> distEnemies2 = new List<float>();
+    private List<float> distEnemies3 = new List<float>();
+    private List<float> distPlayer = new List<float>();
+    private List<float> dotEnemies1 = new List<float>();
+    private List<float> dotEnemies2 = new List<float>();
+    private List<float> dotEnemies3 = new List<float>();
+    private List<float> dotPlayer = new List<float>();
+    private List<float> distances = new List<float>();
+    private bool gettingPos = false;
     #endregion
     #endregion
 
-    private void Awake()
+    private void Start()
     {
+        gameObject.tag = $"Enemy{team}";
+
         agent = GetComponent<NavMeshAgent>();
 
         farmParent = GameObject.FindGameObjectWithTag($"Food{team}");
@@ -74,23 +87,20 @@ public class EnemyUnit : MonoBehaviour
 
         addResources = GameObject.FindObjectOfType<ResourceManager>();
 
-        woodStation = woodParent.transform.GetChild(0).gameObject;
-        mineStation = miningParent.transform.GetChild(0).gameObject;
-    }
+        woodStation = woodParent.transform.GetChild(team).gameObject;
+        mineStation = miningParent.transform.GetChild(team).gameObject;
 
-    private void Start()
-    {
         for (int i = 0; i < totalFarms; i++)
         {
             farms.Add(farmParent.transform.GetChild(i).gameObject);
             distanceFarms.Add(0);
         }
-        for (int i = 1; i < totalMines; i++)
+        for (int i = 4; i < totalMines; i++)
         {
             mines.Add(miningParent.transform.GetChild(i).gameObject);
             distanceMines.Add(0);
         }
-        for (int i = 1; i < totalWoods; i++)
+        for (int i = 4; i < totalWoods; i++)
         {
             woods.Add(woodParent.transform.GetChild(i).gameObject);
             distanceWoods.Add(0);
@@ -276,31 +286,124 @@ public class EnemyUnit : MonoBehaviour
         {
             delStone = false;
             delWood = false;
-            enemies = GameObject.FindGameObjectsWithTag("Player");
-            for(int i = 0; i < 4; i++)
+            enemies1 = GameObject.FindGameObjectsWithTag("Enemy1");
+            enemies2 = GameObject.FindGameObjectsWithTag("Enemy2");
+            enemies3 = GameObject.FindGameObjectsWithTag("Enemy3");
+            player = GameObject.FindGameObjectsWithTag("Player");
+            distEnemies1.Clear();
+            dotEnemies1.Clear();
+            distEnemies2.Clear();
+            dotEnemies2.Clear();
+            distEnemies3.Clear();
+            dotEnemies3.Clear();
+            distPlayer.Clear();
+            dotPlayer.Clear();
+            if(team != 1)
             {
-                //enemies += GameObject.FindGameObjectsWithTag($"Enemy{team}");
-            }
-            distEnemies.Clear();
-            dotEnemies.Clear();
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                distEnemies.Add(0);
-                dotEnemies.Add(0);
-                Vector3 forward = transform.TransformDirection(Vector3.forward);
-                Vector3 toOther = enemies[i].transform.position - transform.position;
-                distEnemies[i] = Vector3.Distance(transform.position, enemies[i].transform.position);
-                dotEnemies[i] = Vector3.Dot(forward.normalized, toOther.normalized);
-            }
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                if (distEnemies[i] < 75 && dotEnemies[i] > 0.5)
+                for (int i = 0; i < enemies1.Length; i++)
                 {
-                    agent.SetDestination(enemies[i].transform.position);
+                    distEnemies1.Add(0);
+                    dotEnemies1.Add(0);
+                    Vector3 forward = transform.TransformDirection(Vector3.forward);
+                    Vector3 toOther = enemies1[i].transform.position - transform.position;
+                    distEnemies1[i] = Vector3.Distance(transform.position, enemies1[i].transform.position);
+                    dotEnemies1[i] = Vector3.Dot(forward.normalized, toOther.normalized);
                 }
-                if (distEnemies[i] < 10 && dotEnemies[i] > 0.5)
+                for (int i = 0; i < enemies1.Length; i++)
                 {
-                    attackingTarget = enemies[i];
+                    if (distEnemies1[i] < 75 && dotEnemies1[i] > 0.5)
+                    {
+                        agent.SetDestination(enemies1[i].transform.position);
+                    }
+                    if (distEnemies1[i] < 10 && dotEnemies1[i] > 0.5)
+                    {
+                        attackingTarget = enemies1[i];
+                        agent.Stop();
+                        agent.ResetPath();
+                        isAttacking = true;
+                        break;
+                    }
+                    else
+                        isAttacking = false;
+                }
+            }
+            #region CopyPaste
+            if(team != 2)
+            {
+                for (int i = 0; i < enemies2.Length; i++)
+                {
+                    distEnemies2.Add(0);
+                    dotEnemies2.Add(0);
+                    Vector3 forward = transform.TransformDirection(Vector3.forward);
+                    Vector3 toOther = enemies2[i].transform.position - transform.position;
+                    distEnemies2[i] = Vector3.Distance(transform.position, enemies2[i].transform.position);
+                    dotEnemies2[i] = Vector3.Dot(forward.normalized, toOther.normalized);
+                }
+                for (int i = 0; i < enemies2.Length; i++)
+                {
+                    if (distEnemies2[i] < 75 && dotEnemies2[i] > 0.5)
+                    {
+                        agent.SetDestination(enemies2[i].transform.position);
+                    }
+                    if (distEnemies2[i] < 10 && dotEnemies2[i] > 0.5)
+                    {
+                        attackingTarget = enemies2[i];
+                        agent.Stop();
+                        agent.ResetPath();
+                        isAttacking = true;
+                        break;
+                    }
+                    else
+                        isAttacking = false;
+                }
+            }
+            if(team != 3)
+            {
+                for (int i = 0; i < enemies3.Length; i++)
+                {
+                    distEnemies3.Add(0);
+                    dotEnemies3.Add(0);
+                    Vector3 forward = transform.TransformDirection(Vector3.forward);
+                    Vector3 toOther = enemies3[i].transform.position - transform.position;
+                    distEnemies3[i] = Vector3.Distance(transform.position, enemies3[i].transform.position);
+                    dotEnemies3[i] = Vector3.Dot(forward.normalized, toOther.normalized);
+                }
+                for (int i = 0; i < enemies3.Length; i++)
+                {
+                    if (distEnemies3[i] < 75 && dotEnemies3[i] > 0.5)
+                    {
+                        agent.SetDestination(enemies3[i].transform.position);
+                    }
+                    if (distEnemies3[i] < 20 && dotEnemies3[i] > 0.5)
+                    {
+                        attackingTarget = enemies3[i];
+                        agent.Stop();
+                        agent.ResetPath();
+                        isAttacking = true;
+                        break;
+                    }
+                    else
+                        isAttacking = false;
+                }
+            }
+            for (int i = 0; i < player.Length; i++)
+            {
+                distPlayer.Add(0);
+                dotPlayer.Add(0);
+                Vector3 forward = transform.TransformDirection(Vector3.forward);
+                Vector3 toOther =player[i].transform.position - transform.position;
+                distPlayer[i] = Vector3.Distance(transform.position, player[i].transform.position);
+                dotPlayer[i] = Vector3.Dot(forward.normalized, toOther.normalized);
+            }
+            for (int i = 0; i < player.Length; i++)
+            {
+                if (distPlayer[i] < 75 && dotPlayer[i] > 0.5)
+                {
+                    agent.SetDestination(player[i].transform.position);
+                }
+                if (distPlayer[i] < 10 && dotPlayer[i] > 0.5)
+                {
+                    attackingTarget = player[i];
                     agent.Stop();
                     agent.ResetPath();
                     isAttacking = true;
@@ -309,10 +412,16 @@ public class EnemyUnit : MonoBehaviour
                 else
                     isAttacking = false;
             }
+#endregion
             if (isAttacking && !startAttack)
             {
                 startAttack = true;
                 Invoke("Attack", 1f);
+            }
+            if (!gettingPos)
+            {
+                GetEnemyPosition();
+                gettingPos = true;
             }
         }
 
@@ -334,7 +443,7 @@ public class EnemyUnit : MonoBehaviour
         {
             thisStone++;
             gettingStone = false;
-            mines[closestMine].GetComponent<TreeRockHealth>().health -= 10;
+            mines[closestMine].GetComponent<HP_System>().health -= 10;
         }
     }
 
@@ -344,7 +453,7 @@ public class EnemyUnit : MonoBehaviour
         {
             thisWood++;
             gettingWood = false;
-            woods[closestWood].GetComponent<TreeRockHealth>().health -= 10;
+            woods[closestWood].GetComponent<HP_System>().health -= 10;
         }
     }
 
@@ -371,10 +480,47 @@ public class EnemyUnit : MonoBehaviour
             reachedDest = false;
     }
 
+    #region KnightMoves
     private void Attack()
     {
         if (attackingTarget != null)
             attackingTarget.GetComponent<HP_System>().health -= 10;
         startAttack = false;
     }
+
+    private void GetEnemyPosition()
+    {
+        if (distEnemies1.Count != 0 && distEnemies1.Min() != 0)
+            distances.Add(distEnemies1.Min());
+        if (distEnemies2.Count != 0 && distEnemies2.Min() != 0)
+            distances.Add(distEnemies2.Min());
+        if (distEnemies3.Count != 0 && distEnemies3.Min() != 0)
+            distances.Add(distEnemies3.Min());
+        if (distPlayer.Count != 0 && distPlayer.Min() != 0)
+            distances.Add(distPlayer.Min());
+
+        Invoke("GetEnemyPosition", 60f);
+
+        if(distEnemies1.Count != 0 && distances.Min() == distEnemies1.Min())
+        {
+            agent.SetDestination(enemies1[distEnemies1.IndexOf(distEnemies1.Min())].transform.position);
+            return;
+        }
+        if (distEnemies2.Count != 0 && distances.Min() == distEnemies2.Min())
+        {
+            agent.SetDestination(enemies2[distEnemies2.IndexOf(distEnemies2.Min())].transform.position);
+            return;
+        }
+        if (distEnemies3.Count != 0 && distances.Min() == distEnemies3.Min())
+        {
+            agent.SetDestination(enemies3[distEnemies3.IndexOf(distEnemies3.Min())].transform.position);
+            return;
+        }
+        if (distPlayer.Count != 0 && distances.Min() == distPlayer.Min())
+        {
+            agent.SetDestination(player[distPlayer.IndexOf(distPlayer.Min())].transform.position);
+            return;
+        }
+    }
+    #endregion
 }

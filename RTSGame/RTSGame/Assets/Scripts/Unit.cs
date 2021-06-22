@@ -94,12 +94,12 @@ namespace RTS
                 farms.Add(farmParent.transform.GetChild(i).gameObject);
                 distanceFarms.Add(0);
             }
-            for (int i = 1; i < totalMines; i++)
+            for (int i = 4; i < totalMines; i++)
             {
                 mines.Add(miningParent.transform.GetChild(i).gameObject);
                 distanceMines.Add(0);
             }
-            for (int i = 1; i < totalWoods; i++)
+            for (int i = 4; i < totalWoods; i++)
             {
                 woods.Add(woodParent.transform.GetChild(i).gameObject);
                 distanceWoods.Add(0);
@@ -322,7 +322,6 @@ namespace RTS
                     {
                         agent.SetDestination(enemies[i].transform.position);
                         indicatorColor.material.SetColor("_BaseColor", Color.black);
-                        Debug.Log("Enemy Detect");
                     }
                     if (distEnemies[i] < 10 && dotEnemies[i] > 0.5)
                     {
@@ -361,7 +360,7 @@ namespace RTS
             {
                 thisStone++;
                 gettingStone = false;
-                mines[closestMine].GetComponent<TreeRockHealth>().health -= 10;
+                mines[closestMine].GetComponent<HP_System>().health -= 10;
             }
         }
 
@@ -371,7 +370,7 @@ namespace RTS
             {
                 thisWood++;
                 gettingWood = false;
-                woods[closestWood].GetComponent<TreeRockHealth>().health -= 10;
+                woods[closestWood].GetComponent<HP_System>().health -= 10;
             }
         }
 

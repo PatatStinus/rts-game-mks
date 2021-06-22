@@ -7,9 +7,13 @@ TagManager:
   - Food
   - Wood
   - Rock
-  - Enemy
   - Enemy1
   - Enemy2
+  - Food1
+  - Food2
+  - Food3
+  - Enemy3
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 8077129720987507404}
   m_Layer: 0
   m_Name: EnemyVillager
-  m_TagString: Enemy
+  m_TagString: Enemy1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -261,6 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3607ac7a317ca469cd4fbf791e10f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 1
+  job: 1
 --- !u!65 &8077129720987507405
 BoxCollider:
   m_ObjectHideFlags: 0
