@@ -33,6 +33,10 @@ namespace RTS
             ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
+            for(int i = 0; i < unitsSelected.Count; i++)
+                if (unitsSelected[i] == null)
+                    unitsSelected.RemoveAt(i);
+
             //Make box size
             if (Input.GetMouseButton(0) && Physics.Raycast(ray, out hit))
             {
@@ -117,6 +121,8 @@ namespace RTS
                         unitJob = "Miner";
                     if (unitsSelected[i].job == 3)
                         unitJob = "Lumberjack";
+                    if (unitsSelected[i].job == 4)
+                        unitJob = "Knight";
 
                     unitsText.text += $"Villager {i} | Job = {unitJob} | Wood = {unitsSelected[i].thisWood} | Stone = {unitsSelected[i].thisStone}";
                     unitsText.text += "\n";

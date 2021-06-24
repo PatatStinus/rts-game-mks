@@ -60,7 +60,7 @@ namespace RTS
         private bool isAttacking;
         private bool startAttack;
         private GameObject attackingTarget;
-        private GameObject[] enemies;
+        private List<GameObject> enemies = new List<GameObject>();
         private List<float> distEnemies = new List<float>();
         private List<float> dotEnemies = new List<float>();
         #endregion
@@ -143,7 +143,7 @@ namespace RTS
 
                     if (reachedDest && !gettingFood)
                     {
-                        Invoke("GetFood", 1f);
+                        Invoke("GetFood", 3f);
                         gettingFood = true;
                     }
                 }
@@ -301,13 +301,22 @@ namespace RTS
             }
             if(job == 4)
             {
+                GameObject[] enemy1 = GameObject.FindGameObjectsWithTag("Enemy1");
+                GameObject[] enemy2 = GameObject.FindGameObjectsWithTag("Enemy2");
+                GameObject[] enemy3 = GameObject.FindGameObjectsWithTag("Enemy3");
                 delStone = false;
                 delWood = false;
                 indicatorColor.material.SetColor("_BaseColor", Color.red);
-                enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                enemies.Clear();
+                for (int i = 0; i < enemy1.Length; i++)
+                    enemies.Add(enemy1[i]);
+                for (int i = 0; i < enemy2.Length; i++)
+                    enemies.Add(enemy2[i]);
+                for (int i = 0; i < enemy3.Length; i++)
+                    enemies.Add(enemy3[i]);
                 distEnemies.Clear();
                 dotEnemies.Clear();
-                for(int i = 0; i < enemies.Length; i++)
+                for(int i = 0; i < enemies.Count; i++)
                 {
                     distEnemies.Add(0);
                     dotEnemies.Add(0);
@@ -316,7 +325,7 @@ namespace RTS
                     distEnemies[i] = Vector3.Distance(transform.position, enemies[i].transform.position);
                     dotEnemies[i] = Vector3.Dot(forward.normalized, toOther.normalized);
                 }
-                for (int i = 0; i < enemies.Length; i++)
+                for (int i = 0; i < enemies.Count; i++)
                 {
                     if (distEnemies[i] < 75 && dotEnemies[i] > 0.5)
                     {
@@ -327,7 +336,7 @@ namespace RTS
                     {
                         indicatorColor.material.SetColor("_BaseColor", Color.red);
                         attackingTarget = enemies[i];
-                        agent.Stop();
+                        agent.isStopped = true;
                         agent.ResetPath();
                         isAttacking = true;
                         break;

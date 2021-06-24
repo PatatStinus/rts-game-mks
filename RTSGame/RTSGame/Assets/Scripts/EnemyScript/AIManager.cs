@@ -7,10 +7,11 @@ public class AIManager : MonoBehaviour
     [SerializeField] public GameObject createVillager;
     [SerializeField] public GameObject spawnLoc;
     public int team;
-    public int wood = 10;
+    public int wood = 0;
     public int food = 0;
     public int stone = 0;
     private int vSpawnCount;
+    public int totalVillagers = 30;
     private int villagerCount = 0;
     private bool spawning = false;
 
@@ -20,10 +21,12 @@ public class AIManager : MonoBehaviour
         {
             createVillager.GetComponent<EnemyUnit>().team = team;
             Instantiate(createVillager, spawnLoc.transform);
-            villagerCount++;
             vSpawnCount--;
         }
-        if (!spawning)
+
+        villagerCount = spawnLoc.transform.childCount - 1;
+
+        if (!spawning && villagerCount < totalVillagers)
         {
             float time = Random.Range(10f, 20f);
             Invoke("SpawnVillager", time);

@@ -54,19 +54,19 @@ public class EnemyUnit : MonoBehaviour
     private bool isAttacking;
     private bool startAttack;
     private GameObject attackingTarget;
-    private GameObject[] enemies1;
-    private GameObject[] enemies2;
-    private GameObject[] enemies3;
-    private GameObject[] player;
-    private List<float> distEnemies1 = new List<float>();
-    private List<float> distEnemies2 = new List<float>();
-    private List<float> distEnemies3 = new List<float>();
-    private List<float> distPlayer = new List<float>();
-    private List<float> dotEnemies1 = new List<float>();
-    private List<float> dotEnemies2 = new List<float>();
-    private List<float> dotEnemies3 = new List<float>();
-    private List<float> dotPlayer = new List<float>();
-    private List<float> distances = new List<float>();
+    public GameObject[] enemies1;
+    public GameObject[] enemies2;
+    public GameObject[] enemies3;
+    public GameObject[] player;
+    public List<float> distEnemies1 = new List<float>();
+    public List<float> distEnemies2 = new List<float>();
+    public List<float> distEnemies3 = new List<float>();
+    public List<float> distPlayer = new List<float>();
+    public List<float> dotEnemies1 = new List<float>();
+    public List<float> dotEnemies2 = new List<float>();
+    public List<float> dotEnemies3 = new List<float>();
+    public List<float> dotPlayer = new List<float>();
+    public List<float> distances = new List<float>();
     private bool gettingPos = false;
     #endregion
     #endregion
@@ -105,6 +105,20 @@ public class EnemyUnit : MonoBehaviour
             woods.Add(woodParent.transform.GetChild(i).gameObject);
             distanceWoods.Add(0);
         }
+
+        switch (team)
+        {
+            case 1:
+                GetComponent<Renderer>().material.color = Color.blue;
+                break;
+            case 2:
+                GetComponent<Renderer>().material.color = Color.white;
+                break;
+            case 3:
+                GetComponent<Renderer>().material.color = Color.magenta;
+                break;
+        }
+
         job = Random.Range(1, 5);
     }
 
@@ -131,7 +145,7 @@ public class EnemyUnit : MonoBehaviour
 
                 if (reachedDest && !gettingFood)
                 {
-                    Invoke("GetFood", 1f);
+                    Invoke("GetFood", 3f);
                     gettingFood = true;
                 }
             }
@@ -318,13 +332,15 @@ public class EnemyUnit : MonoBehaviour
                     if (distEnemies1[i] < 10 && dotEnemies1[i] > 0.5)
                     {
                         attackingTarget = enemies1[i];
-                        agent.Stop();
-                        agent.ResetPath();
+                        agent.isStopped = true;
                         isAttacking = true;
                         break;
                     }
                     else
+                    {
                         isAttacking = false;
+                        attackingTarget = null;
+                    }
                 }
             }
             #region CopyPaste
@@ -345,16 +361,18 @@ public class EnemyUnit : MonoBehaviour
                     {
                         agent.SetDestination(enemies2[i].transform.position);
                     }
-                    if (distEnemies2[i] < 10 && dotEnemies2[i] > 0.5)
+                    if (distEnemies2[i] < 30 && dotEnemies2[i] > 0.5)
                     {
                         attackingTarget = enemies2[i];
-                        agent.Stop();
-                        agent.ResetPath();
+                        agent.isStopped = true;
                         isAttacking = true;
                         break;
                     }
                     else
+                    {
                         isAttacking = false;
+                        attackingTarget = null;
+                    }
                 }
             }
             if(team != 3)
@@ -377,13 +395,15 @@ public class EnemyUnit : MonoBehaviour
                     if (distEnemies3[i] < 30 && dotEnemies3[i] > 0.5)
                     {
                         attackingTarget = enemies3[i];
-                        agent.Stop();
-                        agent.ResetPath();
+                        agent.isStopped = true;
                         isAttacking = true;
                         break;
                     }
                     else
+                    {
                         isAttacking = false;
+                        attackingTarget = null;
+                    }
                 }
             }
             for (int i = 0; i < player.Length; i++)
@@ -391,7 +411,7 @@ public class EnemyUnit : MonoBehaviour
                 distPlayer.Add(0);
                 dotPlayer.Add(0);
                 Vector3 forward = transform.TransformDirection(Vector3.forward);
-                Vector3 toOther =player[i].transform.position - transform.position;
+                Vector3 toOther = player[i].transform.position - transform.position;
                 distPlayer[i] = Vector3.Distance(transform.position, player[i].transform.position);
                 dotPlayer[i] = Vector3.Dot(forward.normalized, toOther.normalized);
             }
@@ -401,16 +421,19 @@ public class EnemyUnit : MonoBehaviour
                 {
                     agent.SetDestination(player[i].transform.position);
                 }
+
                 if (distPlayer[i] < 10 && dotPlayer[i] > 0.5)
                 {
                     attackingTarget = player[i];
-                    agent.Stop();
-                    agent.ResetPath();
+                    agent.isStopped = true;
                     isAttacking = true;
                     break;
                 }
                 else
+                {
                     isAttacking = false;
+                    attackingTarget = null;
+                }
             }
 #endregion
             if (isAttacking && !startAttack)

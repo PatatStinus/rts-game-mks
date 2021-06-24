@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public Slider Timer;
     private float cooldownTime = 10f;
     private int vSpawnCount;
-    public int villagerCount = 0;
+    private int villagerCount = 0;
     public int totalVillagers;
 
     private void Update()
@@ -28,8 +28,8 @@ public class UIManager : MonoBehaviour
             if (cooldownTime <= 0f && villagerCount < totalVillagers)
             {
                 Instantiate(createVillager, spawnLoc.transform);
-                villagerCount++;
                 cooldownTime = 3f;
+                villagerCount = spawnLoc.transform.childCount - 1;
                 vSpawnCount--;
             }
             villagerQueue.text = vSpawnCount.ToString("0");
