@@ -58,15 +58,10 @@ public class EnemyUnit : MonoBehaviour
     public GameObject[] enemies2;
     public GameObject[] enemies3;
     public GameObject[] player;
-    public List<float> distEnemies1 = new List<float>();
-    public List<float> distEnemies2 = new List<float>();
-    public List<float> distEnemies3 = new List<float>();
-    public List<float> distPlayer = new List<float>();
-    public List<float> dotEnemies1 = new List<float>();
-    public List<float> dotEnemies2 = new List<float>();
-    public List<float> dotEnemies3 = new List<float>();
-    public List<float> dotPlayer = new List<float>();
-    public List<float> distances = new List<float>();
+    public List<float> distEnemies = new List<float>();
+    public List<float> dotEnemies = new List<float>();
+    public List<GameObject> allEnemies = new List<GameObject>();
+    public float distances;
     private bool gettingPos = false;
     #endregion
     #endregion
@@ -304,127 +299,48 @@ public class EnemyUnit : MonoBehaviour
             enemies2 = GameObject.FindGameObjectsWithTag("Enemy2");
             enemies3 = GameObject.FindGameObjectsWithTag("Enemy3");
             player = GameObject.FindGameObjectsWithTag("Player");
-            distEnemies1.Clear();
-            dotEnemies1.Clear();
-            distEnemies2.Clear();
-            dotEnemies2.Clear();
-            distEnemies3.Clear();
-            dotEnemies3.Clear();
-            distPlayer.Clear();
-            dotPlayer.Clear();
+            distEnemies.Clear();
+            dotEnemies.Clear();
+            allEnemies.Clear();
             if(team != 1)
             {
                 for (int i = 0; i < enemies1.Length; i++)
-                {
-                    distEnemies1.Add(0);
-                    dotEnemies1.Add(0);
-                    Vector3 forward = transform.TransformDirection(Vector3.forward);
-                    Vector3 toOther = enemies1[i].transform.position - transform.position;
-                    distEnemies1[i] = Vector3.Distance(transform.position, enemies1[i].transform.position);
-                    dotEnemies1[i] = Vector3.Dot(forward.normalized, toOther.normalized);
-                }
-                for (int i = 0; i < enemies1.Length; i++)
-                {
-                    if (distEnemies1[i] < 75 && dotEnemies1[i] > 0.5)
-                    {
-                        agent.SetDestination(enemies1[i].transform.position);
-                    }
-                    if (distEnemies1[i] < 10 && dotEnemies1[i] > 0.5)
-                    {
-                        attackingTarget = enemies1[i];
-                        agent.isStopped = true;
-                        isAttacking = true;
-                        break;
-                    }
-                    else
-                    {
-                        isAttacking = false;
-                        attackingTarget = null;
-                    }
-                }
+                    allEnemies.Add(enemies1[i]);
             }
             #region CopyPaste
             if(team != 2)
             {
                 for (int i = 0; i < enemies2.Length; i++)
-                {
-                    distEnemies2.Add(0);
-                    dotEnemies2.Add(0);
-                    Vector3 forward = transform.TransformDirection(Vector3.forward);
-                    Vector3 toOther = enemies2[i].transform.position - transform.position;
-                    distEnemies2[i] = Vector3.Distance(transform.position, enemies2[i].transform.position);
-                    dotEnemies2[i] = Vector3.Dot(forward.normalized, toOther.normalized);
-                }
-                for (int i = 0; i < enemies2.Length; i++)
-                {
-                    if (distEnemies2[i] < 75 && dotEnemies2[i] > 0.5)
-                    {
-                        agent.SetDestination(enemies2[i].transform.position);
-                    }
-                    if (distEnemies2[i] < 30 && dotEnemies2[i] > 0.5)
-                    {
-                        attackingTarget = enemies2[i];
-                        agent.isStopped = true;
-                        isAttacking = true;
-                        break;
-                    }
-                    else
-                    {
-                        isAttacking = false;
-                        attackingTarget = null;
-                    }
-                }
+                    allEnemies.Add(enemies2[i]);
             }
             if(team != 3)
             {
                 for (int i = 0; i < enemies3.Length; i++)
-                {
-                    distEnemies3.Add(0);
-                    dotEnemies3.Add(0);
-                    Vector3 forward = transform.TransformDirection(Vector3.forward);
-                    Vector3 toOther = enemies3[i].transform.position - transform.position;
-                    distEnemies3[i] = Vector3.Distance(transform.position, enemies3[i].transform.position);
-                    dotEnemies3[i] = Vector3.Dot(forward.normalized, toOther.normalized);
-                }
-                for (int i = 0; i < enemies3.Length; i++)
-                {
-                    if (distEnemies3[i] < 75 && dotEnemies3[i] > 0.5)
-                    {
-                        agent.SetDestination(enemies3[i].transform.position);
-                    }
-                    if (distEnemies3[i] < 30 && dotEnemies3[i] > 0.5)
-                    {
-                        attackingTarget = enemies3[i];
-                        agent.isStopped = true;
-                        isAttacking = true;
-                        break;
-                    }
-                    else
-                    {
-                        isAttacking = false;
-                        attackingTarget = null;
-                    }
-                }
+                    allEnemies.Add(enemies3[i]);
             }
             for (int i = 0; i < player.Length; i++)
             {
-                distPlayer.Add(0);
-                dotPlayer.Add(0);
+                allEnemies.Add(player[i]);
+            }
+            for(int i = 0; i < allEnemies.Count; i++)
+            {
+                distEnemies.Add(0);
+                dotEnemies.Add(0);
                 Vector3 forward = transform.TransformDirection(Vector3.forward);
-                Vector3 toOther = player[i].transform.position - transform.position;
-                distPlayer[i] = Vector3.Distance(transform.position, player[i].transform.position);
-                dotPlayer[i] = Vector3.Dot(forward.normalized, toOther.normalized);
+                Vector3 toOther = allEnemies[i].transform.position - transform.position;
+                distEnemies[i] = Vector3.Distance(transform.position, allEnemies[i].transform.position);
+                dotEnemies[i] = Vector3.Dot(forward.normalized, toOther.normalized);
             }
-            for (int i = 0; i < player.Length; i++)
+            for (int i = 0; i < allEnemies.Count; i++)
             {
-                if (distPlayer[i] < 75 && dotPlayer[i] > 0.5)
+                if (distEnemies[i] < 75 && dotEnemies[i] > 0.5)
                 {
-                    agent.SetDestination(player[i].transform.position);
+                    agent.SetDestination(allEnemies[i].transform.position);
                 }
 
-                if (distPlayer[i] < 10 && dotPlayer[i] > 0.5)
+                if (distEnemies[i] < 10 && dotEnemies[i] > 0.5)
                 {
-                    attackingTarget = player[i];
+                    attackingTarget = allEnemies[i];
                     agent.isStopped = true;
                     isAttacking = true;
                     break;
@@ -513,38 +429,10 @@ public class EnemyUnit : MonoBehaviour
 
     private void GetEnemyPosition()
     {
-        distances.Clear();
-        if (distEnemies1.Count != 0 && distEnemies1.Min() != 0)
-            distances.Add(distEnemies1.Min());
-        if (distEnemies2.Count != 0 && distEnemies2.Min() != 0)
-            distances.Add(distEnemies2.Min());
-        if (distEnemies3.Count != 0 && distEnemies3.Min() != 0)
-            distances.Add(distEnemies3.Min());
-        if (distPlayer.Count != 0 && distPlayer.Min() != 0)
-            distances.Add(distPlayer.Min());
-
         Invoke("GetEnemyPosition", 60f);
 
-        if(distEnemies1.Count != 0 && distances.Min() == distEnemies1.Min())
-        {
-            agent.SetDestination(enemies1[distEnemies1.IndexOf(distEnemies1.Min())].transform.position);
-            return;
-        }
-        if (distEnemies2.Count != 0 && distances.Min() == distEnemies2.Min())
-        {
-            agent.SetDestination(enemies2[distEnemies2.IndexOf(distEnemies2.Min())].transform.position);
-            return;
-        }
-        if (distEnemies3.Count != 0 && distances.Min() == distEnemies3.Min())
-        {
-            agent.SetDestination(enemies3[distEnemies3.IndexOf(distEnemies3.Min())].transform.position);
-            return;
-        }
-        if (distPlayer.Count != 0 && distances.Min() == distPlayer.Min())
-        {
-            agent.SetDestination(player[distPlayer.IndexOf(distPlayer.Min())].transform.position);
-            return;
-        }
+        if(distEnemies.Count != 0 && distEnemies.Min() != 0)
+            agent.SetDestination(allEnemies[distEnemies.IndexOf(distEnemies.Min())].transform.position);
     }
     #endregion
 }
