@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2568572761591420304}
   m_Layer: 0
   m_Name: Farm
-  m_TagString: Enemy3
+  m_TagString: Enemy1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207298831450661633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30, y: 0.5, z: 25}
+  m_LocalPosition: {x: 199.28452, y: 0.5, z: -240.89716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

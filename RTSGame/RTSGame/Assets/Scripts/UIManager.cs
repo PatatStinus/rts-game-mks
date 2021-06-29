@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject spawnLoc;
     [SerializeField] public TextMeshProUGUI villagerQueue;
     [SerializeField] public Slider Timer;
+    [SerializeField] private GameObject errorText;
     private float cooldownTime = 10f;
     private int vSpawnCount;
     private int villagerCount = 0;
@@ -44,6 +45,16 @@ public class UIManager : MonoBehaviour
             if (vSpawnCount > 10)
                 vSpawnCount = 10;
         }
+        else
+        {
+            Invoke("ErrorOff", 1f);
+            errorText.SetActive(true);
+        }
+    }
+
+    private void ErrorOff()
+    {
+        errorText.SetActive(false);
     }
     #endregion
 
