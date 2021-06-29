@@ -22,6 +22,7 @@ public class EnemyUnit : MonoBehaviour
     private int totalFarms = 0;
     private int closestFarm;
     private bool gettingFood;
+    public float gettingFoodTime = 3f;
     #endregion
 
     #region Mining
@@ -143,7 +144,7 @@ public class EnemyUnit : MonoBehaviour
 
                 if (reachedDest && !gettingFood)
                 {
-                    Invoke("GetFood", 3f);
+                    Invoke("GetFood", gettingFoodTime);
                     gettingFood = true;
                 }
             }
