@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
-    [SerializeField] public GameObject createVillager;
-    [SerializeField] public GameObject spawnLoc;
+    [SerializeField] private GameObject createVillager;
+    [SerializeField] private GameObject spawnLoc;
+    [SerializeField] private GameObject farmParent;
+    [SerializeField] private GameObject townHall;
     public int team;
     public int wood = 0;
     public int food = 0;
@@ -17,6 +19,12 @@ public class AIManager : MonoBehaviour
 
     private void Update()
     {
+        if (townHall == null)
+        {
+            for (int i = 0; i < spawnLoc.transform.childCount; i++)
+                Destroy(spawnLoc.transform.GetChild(i).gameObject);
+            return;
+        }
         if (vSpawnCount > 0)
         {
             createVillager.GetComponent<EnemyUnit>().team = team;
@@ -32,11 +40,18 @@ public class AIManager : MonoBehaviour
             Invoke("SpawnVillager", time);
             spawning = true;
         }
+
+        SpawningBuilding();
     }
     
     public void SpawnVillager()
     {
         vSpawnCount++;
         spawning = false;
+    }
+
+    private void SpawningBuilding()
+    {
+
     }
 }

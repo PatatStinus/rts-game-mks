@@ -54,14 +54,14 @@ public class EnemyUnit : MonoBehaviour
     private bool isAttacking;
     private bool startAttack;
     private GameObject attackingTarget;
-    public GameObject[] enemies1;
-    public GameObject[] enemies2;
-    public GameObject[] enemies3;
-    public GameObject[] player;
-    public List<float> distEnemies = new List<float>();
-    public List<float> dotEnemies = new List<float>();
-    public List<GameObject> allEnemies = new List<GameObject>();
-    public float distances;
+    private GameObject[] enemies1;
+    private GameObject[] enemies2;
+    private GameObject[] enemies3;
+    private GameObject[] player;
+    private List<float> distEnemies = new List<float>();
+    private List<float> dotEnemies = new List<float>();
+    private List<GameObject> allEnemies = new List<GameObject>();
+    private float distances;
     private bool gettingPos = false;
     #endregion
     #endregion
@@ -84,12 +84,6 @@ public class EnemyUnit : MonoBehaviour
 
         woodStation = woodParent.transform.GetChild(team).gameObject;
         mineStation = miningParent.transform.GetChild(team).gameObject;
-
-        for (int i = 0; i < totalFarms; i++)
-        {
-            farms.Add(farmParent.transform.GetChild(i).gameObject);
-            distanceFarms.Add(0);
-        }
         for (int i = 4; i < totalMines; i++)
         {
             mines.Add(miningParent.transform.GetChild(i).gameObject);
@@ -119,9 +113,18 @@ public class EnemyUnit : MonoBehaviour
 
     private void Update()
     {
+        totalFarms = farmParent.transform.childCount;
+        farms.Clear();
+        distanceFarms.Clear();
+        for (int i = 0; i < totalFarms; i++)
+        {
+            farms.Add(farmParent.transform.GetChild(i).gameObject);
+            distanceFarms.Add(0);
+        }
         //1 = Farming
         //2 = Mining
         //3 = Chopping wood
+        //4 = Knight
 
         if (job == 1)
         {

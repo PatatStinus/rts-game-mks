@@ -7,8 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void OnClickStart()
     {
-        
-        SceneManager.LoadScene("Scene Mark");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void QuitGame()
     {

@@ -89,11 +89,6 @@ namespace RTS
 
         private void Start()
         {
-            for (int i = 0; i < totalFarms; i++)
-            {
-                farms.Add(farmParent.transform.GetChild(i).gameObject);
-                distanceFarms.Add(0);
-            }
             for (int i = 4; i < totalMines; i++)
             {
                 mines.Add(miningParent.transform.GetChild(i).gameObject);
@@ -120,6 +115,15 @@ namespace RTS
             //1 = Farming
             //2 = Mining
             //3 = Chopping wood
+            //4 = Knight
+
+            farms.Clear();
+            distanceFarms.Clear();
+            for (int i = 0; i < totalFarms; i++)
+            {
+                farms.Add(farmParent.transform.GetChild(i).gameObject);
+                distanceFarms.Add(0);
+            }
 
             if (Vector3.Distance(agent.destination, transform.position) < 5)
                 playerInput = false;
