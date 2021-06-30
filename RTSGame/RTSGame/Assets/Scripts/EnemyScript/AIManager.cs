@@ -11,6 +11,7 @@ public class AIManager : MonoBehaviour
     [SerializeField] private GameObject townHall;
     [SerializeField] private GameObject farmPrefab;
     [SerializeField] private GameObject barracksPrefab;
+    [SerializeField] private WinLoseManager win;
     private int leftRight = 0;
     private bool spawnedFarm = false;
     public int team;
@@ -28,6 +29,7 @@ public class AIManager : MonoBehaviour
         {
             for (int i = 0; i < spawnLoc.transform.childCount; i++)
                 Destroy(spawnLoc.transform.GetChild(i).gameObject);
+            win.win++;
             return;
         }
         if (vSpawnCount > 0)

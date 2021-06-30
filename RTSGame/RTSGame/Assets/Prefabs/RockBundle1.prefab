@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 201536521926518988}
   - component: {fileID: 201536521923651820}
   - component: {fileID: 201536521924749868}
+  - component: {fileID: -7725254373825183657}
   m_Layer: 0
   m_Name: RockBundle1
   m_TagString: Untagged
@@ -84,6 +85,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-7725254373825183657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201536521926685932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65a6cb2e6deb3a4793932aea5284217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1001 &3317437845964789167
 PrefabInstance:
   m_ObjectHideFlags: 0
