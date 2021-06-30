@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: b8f143116a262a849943d14a7842dfdb
+  - enabled: 1
+    path: Assets/Scenes/Stijn Scene.unity
+    guid: c111c805b828c344aa36f911c11e6379
   m_configObjects: {}

@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject errorText;
     [SerializeField] private GameObject townHall;
     [SerializeField] private WinLoseManager loss;
+    private bool matchDecided= false;
     private float cooldownTime = 10f;
     private int vSpawnCount;
     private int villagerCount = 0;
@@ -38,8 +39,11 @@ public class UIManager : MonoBehaviour
             villagerQueue.text = vSpawnCount.ToString("0");
             Timer.value = cooldownTime / 10f;
         }
-        if (townHall == null)
+        if (townHall == null && !matchDecided)
+        {
             loss.loss++;
+            matchDecided = true;
+        }
     }
     public void SpawnObject()
     {
