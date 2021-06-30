@@ -4098,8 +4098,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resources: {fileID: 0}
+  farmParent: {fileID: 0}
   farmPrefab: {fileID: 0}
   barracksPrefab: {fileID: 0}
+  villagerLimit: {fileID: 0}
+  allVillagers: {fileID: 0}
 --- !u!4 &861973272
 Transform:
   m_ObjectHideFlags: 0
@@ -4649,8 +4652,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resources: {fileID: 947693612}
+  farmParent: {fileID: 625075599}
   farmPrefab: {fileID: 207298831450661633, guid: 90c8b68026ef9884fa63babcfcf7ae50, type: 3}
   barracksPrefab: {fileID: 3600518285619190424, guid: 751c5905351880645ab56ae86f2287b6, type: 3}
+  villagerLimit: {fileID: 947693609}
+  allVillagers: {fileID: 1560147444}
 --- !u!114 &947693612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4938,8 +4944,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resources: {fileID: 0}
+  farmParent: {fileID: 0}
   farmPrefab: {fileID: 0}
   barracksPrefab: {fileID: 0}
+  villagerLimit: {fileID: 0}
+  allVillagers: {fileID: 0}
 --- !u!4 &996070544
 Transform:
   m_ObjectHideFlags: 0
@@ -6116,8 +6125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resources: {fileID: 0}
+  farmParent: {fileID: 0}
   farmPrefab: {fileID: 0}
   barracksPrefab: {fileID: 0}
+  villagerLimit: {fileID: 0}
+  allVillagers: {fileID: 0}
 --- !u!4 &1167602736
 Transform:
   m_ObjectHideFlags: 0

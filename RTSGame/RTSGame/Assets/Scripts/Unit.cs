@@ -28,6 +28,7 @@ namespace RTS
         private int totalFarms = 0;
         private int closestFarm;
         private bool gettingFood;
+        public float gettingFoodTime = 3f;
         #endregion
 
         #region Mining
@@ -147,7 +148,7 @@ namespace RTS
 
                     if (reachedDest && !gettingFood)
                     {
-                        Invoke("GetFood", 3f);
+                        Invoke("GetFood", gettingFoodTime);
                         gettingFood = true;
                     }
                 }
