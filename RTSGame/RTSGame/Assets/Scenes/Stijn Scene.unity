@@ -7142,7 +7142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &146380160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28354,9 +28354,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 766709451}
-        m_TargetAssemblyTypeName: UnityEngine.Transform, UnityEngine
-        m_MethodName: SetAsLastSibling
+      - m_Target: {fileID: 947693615}
+        m_TargetAssemblyTypeName: ButtonUISwitch, Assembly-CSharp
+        m_MethodName: Villager
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -39859,6 +39859,7 @@ GameObject:
   - component: {fileID: 947693611}
   - component: {fileID: 947693609}
   - component: {fileID: 947693613}
+  - component: {fileID: 947693615}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -39973,6 +39974,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &947693615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947693608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8cad1e09537604a9e2d5570634c4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jobsPanel: {fileID: 1023017669}
+  villagerPanel: {fileID: 766709450}
+  buildingPanel: {fileID: 146380159}
 --- !u!1001 &948279841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42949,9 +42965,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1023017670}
-        m_TargetAssemblyTypeName: UnityEngine.Transform, UnityEngine
-        m_MethodName: SetAsLastSibling
+      - m_Target: {fileID: 947693615}
+        m_TargetAssemblyTypeName: ButtonUISwitch, Assembly-CSharp
+        m_MethodName: Jobs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -43461,7 +43477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1023017670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -59050,9 +59066,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 146380160}
-        m_TargetAssemblyTypeName: UnityEngine.Transform, UnityEngine
-        m_MethodName: SetAsLastSibling
+      - m_Target: {fileID: 947693615}
+        m_TargetAssemblyTypeName: ButtonUISwitch, Assembly-CSharp
+        m_MethodName: Buildings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
