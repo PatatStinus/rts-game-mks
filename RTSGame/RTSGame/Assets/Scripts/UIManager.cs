@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
             if (cooldownTime <= 0f && villagerCount < totalVillagers)
             {
                 Instantiate(createVillager, spawnLoc.transform);
-                cooldownTime = 3f;
+                cooldownTime = 10f;
                 villagerCount = spawnLoc.transform.childCount - 1;
                 vSpawnCount--;
             }

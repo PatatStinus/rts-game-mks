@@ -13,11 +13,17 @@ namespace RTS
         [SerializeField] private GameObject barracksPrefab;
         [SerializeField] private UIManager villagerLimit;
         [SerializeField] private GameObject allVillagers;
+        public int villagerCount = 10;
+        public float farmTime = 3f;
         private bool spawnBarrack;
         private bool spawnFarm;
 
         void Update()
         {
+            //Display on UI: Max Villager Count (villagerCount)
+            //Time to get food (farmTime)
+            //Price of building (10 of every resources)
+            //Error Message when limit reached (UIManager.cs)
             if (Input.GetMouseButtonUp(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -30,6 +36,7 @@ namespace RTS
                     for (int i = 1; i < allVillagers.transform.childCount; i++)
                     {
                         allVillagers.transform.GetChild(i).GetComponent<Unit>().gettingFoodTime /= farmParent.transform.childCount;
+                        farmTime /= farmParent.transform.childCount;
                     }
                     spawnFarm = false;
                     resources.wood -= 10;
@@ -42,6 +49,7 @@ namespace RTS
                     barracksPrefab.transform.position = new Vector3(hit.point.x, farmPrefab.transform.localScale.y / 2, hit.point.z);
                     Instantiate(barracksPrefab, barracksParent.transform);
                     villagerLimit.totalVillagers += 5;
+                    villagerCount += 5;
                     spawnBarrack = false;
                     resources.wood -= 10;
                     resources.stone -= 10;
