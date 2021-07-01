@@ -30,7 +30,8 @@ namespace RTS
             
                 if (Physics.Raycast(ray, out hit) && hit.transform.name == "Plane" && spawnFarm && resources.wood >= 10 && resources.food >= 10 && resources.stone >= 10)
                 {
-                    farmPrefab.transform.position = new Vector3(hit.point.x, farmPrefab.transform.localScale.y / 2, hit.point.z);
+                    farmPrefab.transform.position = new Vector3(hit.point.x, farmPrefab.transform.position.y, hit.point.z);
+                    farmPrefab.tag = "Player";
                     Instantiate(farmPrefab, farmParent.transform);
                     for (int i = 1; i < allVillagers.transform.childCount; i++)
                     {
@@ -45,7 +46,8 @@ namespace RTS
 
                 if (Physics.Raycast(ray, out hit) && hit.transform.name == "Plane" && spawnBarrack && resources.wood >= 10 && resources.food >= 10 && resources.stone >= 10)
                 {
-                    barracksPrefab.transform.position = new Vector3(hit.point.x, farmPrefab.transform.localScale.y / 2, hit.point.z);
+                    barracksPrefab.transform.position = new Vector3(hit.point.x, barracksPrefab.transform.position.y, hit.point.z);
+                    barracksPrefab.tag = "Player";
                     Instantiate(barracksPrefab, barracksParent.transform);
                     villagerLimit.totalVillagers += 5;
                     villagerCount += 5;
