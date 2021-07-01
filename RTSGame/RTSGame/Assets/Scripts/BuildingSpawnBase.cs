@@ -22,7 +22,6 @@ namespace RTS
         {
             //Display on UI: Max Villager Count (villagerCount)
             //Time to get food (farmTime)
-            //Price of building (10 of every resources)
             //Error Message when limit reached (UIManager.cs)
             if (Input.GetMouseButtonUp(0))
             {
